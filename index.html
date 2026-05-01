@@ -7,29 +7,32 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Serif+TC:wght@300;400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --gold: #C9A96E;
-    --gold-light: #E8D5A3;
-    --gold-dark: #8B6914;
-    --black: #1A1A18;
-    --off-white: #F8F5EF;
-    --cream: #F0EAD8;
-    --text: #2C2A25;
-    --text-muted: #7A7568;
-    --border: rgba(201,169,110,0.25);
-    --section-bg: #FDFAF4;
+    /* 主色:電光藍 / 強調色:螢光黃綠(對應品牌 logo) */
+    --gold: #1F1FE3;          /* primary blue */
+    --gold-light: #4F4FF7;    /* lighter blue */
+    --gold-dark: #1313A8;     /* darker blue */
+    --accent: #D4FF00;        /* neon lime accent */
+    --accent-dark: #B8DC00;   /* darker lime hover */
+    --black: #0A0A1A;         /* deep blue-black */
+    --off-white: #F7F8FF;     /* slightly blue-tinted white */
+    --cream: #EAEEFF;         /* pale blue */
+    --text: #1A1A2E;          /* dark blue-tinted text */
+    --text-muted: #6B6B8C;    /* muted blue */
+    --border: rgba(31,31,227,0.22);
+    --section-bg: #F2F4FF;    /* very light blue */
   }
-
+ 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
+ 
   html { scroll-behavior: smooth; }
-
+ 
   body {
     font-family: 'DM Sans', sans-serif;
     background: var(--off-white);
     color: var(--text);
     overflow-x: hidden;
   }
-
+ 
   /* ── NAVBAR ── */
   nav {
     position: fixed;
@@ -39,12 +42,12 @@
     align-items: center;
     justify-content: space-between;
     padding: 1rem 3rem;
-    background: rgba(248,245,239,0.92);
+    background: rgba(247,248,255,0.92);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
     transition: padding 0.3s;
   }
-
+ 
   .logo {
     font-family: 'Playfair Display', serif;
     font-size: 1.5rem;
@@ -53,8 +56,8 @@
     color: var(--black);
     text-decoration: none;
   }
-  .logo span { color: var(--gold); }
-
+  .logo span { color: var(--accent); }
+ 
   nav ul {
     display: flex;
     gap: 2rem;
@@ -70,7 +73,7 @@
     transition: color 0.2s;
   }
   nav ul a:hover { color: var(--gold); }
-
+ 
   .nav-status {
     display: flex;
     align-items: center;
@@ -93,7 +96,7 @@
     0%, 100% { opacity: 1; }
     50% { opacity: 0.4; }
   }
-
+ 
   /* ── HERO CAROUSEL ── */
   .hero {
     position: relative;
@@ -101,13 +104,13 @@
     min-height: 600px;
     overflow: hidden;
   }
-
+ 
   .slides {
     display: flex;
     height: 100%;
     transition: transform 0.8s cubic-bezier(0.77,0,0.175,1);
   }
-
+ 
   .slide {
     min-width: 100%;
     height: 100%;
@@ -120,24 +123,26 @@
     position: relative;
     overflow: hidden;
   }
-
+ 
   .slide-img {
     position: absolute;
     inset: 0;
-    background: var(--cream);
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 5rem;
     color: var(--border);
   }
+  #slide-bg-2 { background: linear-gradient(135deg, var(--black) 0%, var(--gold) 100%); }
+  #slide-bg-3 { background: linear-gradient(135deg, var(--gold-dark) 0%, var(--accent) 220%); }
   .slide-img::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom, rgba(26,26,24,0.3) 0%, rgba(26,26,24,0.55) 100%);
+    background: linear-gradient(to bottom, rgba(10,10,30,0.3) 0%, rgba(10,10,30,0.55) 100%);
   }
-
+ 
   .slide-content {
     position: relative;
     z-index: 2;
@@ -148,8 +153,8 @@
     font-size: 0.75rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    border: 1px solid var(--gold-light);
-    color: var(--gold-light);
+    border: 1px solid var(--accent);
+    color: var(--accent);
     padding: 4px 14px;
     border-radius: 20px;
     margin-bottom: 1.2rem;
@@ -169,10 +174,10 @@
     margin: 0 auto 2rem;
     line-height: 1.6;
   }
-
+ 
   .btn-primary {
     display: inline-block;
-    background: var(--gold);
+    background: var(--accent);
     color: var(--black);
     font-size: 0.85rem;
     font-weight: 500;
@@ -186,10 +191,10 @@
     cursor: pointer;
   }
   .btn-primary:hover {
-    background: var(--gold-light);
+    background: var(--accent-dark);
     transform: translateY(-2px);
   }
-
+ 
   .carousel-controls {
     position: absolute;
     bottom: 2rem;
@@ -208,12 +213,12 @@
     transition: all 0.3s;
   }
   .dot.active {
-    background: var(--gold-light);
-    border-color: var(--gold-light);
+    background: var(--accent);
+    border-color: var(--accent);
     width: 24px;
     border-radius: 4px;
   }
-
+ 
   .carousel-arrow {
     position: absolute;
     top: 50%;
@@ -234,18 +239,18 @@
   .carousel-arrow:hover { background: rgba(255,255,255,0.3); }
   .carousel-arrow.prev { left: 2rem; }
   .carousel-arrow.next { right: 2rem; }
-
+ 
   /* ── NOTICE BAR ── */
   .notice-bar {
-    background: var(--black);
-    color: var(--gold-light);
+    background: var(--gold);
+    color: var(--accent);
     text-align: center;
     padding: 12px;
     font-size: 0.82rem;
     letter-spacing: 0.08em;
   }
   .notice-bar span { opacity: 0.6; margin: 0 12px; }
-
+ 
   /* ── SECTION COMMONS ── */
   section { padding: 5rem 3rem; }
   .section-label {
@@ -271,7 +276,7 @@
     margin-bottom: 1.5rem;
   }
   .container { max-width: 1200px; margin: 0 auto; }
-
+ 
   /* ── RULES ── */
   #rules {
     background: var(--black);
@@ -279,21 +284,21 @@
   }
   #rules .section-title { color: var(--off-white); }
   #rules .section-label { color: var(--gold); }
-
+ 
   .rules-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1.5px;
     margin-top: 3rem;
-    border: 1.5px solid rgba(201,169,110,0.2);
+    border: 1.5px solid rgba(31,31,227,0.2);
   }
   .rule-item {
     padding: 2rem 1.5rem;
-    border: 1px solid rgba(201,169,110,0.12);
+    border: 1px solid rgba(31,31,227,0.12);
     background: rgba(255,255,255,0.03);
     transition: background 0.2s;
   }
-  .rule-item:hover { background: rgba(201,169,110,0.08); }
+  .rule-item:hover { background: rgba(31,31,227,0.08); }
   .rule-num {
     font-family: 'Playfair Display', serif;
     font-size: 2.5rem;
@@ -312,10 +317,10 @@
   }
   .rule-desc {
     font-size: 0.88rem;
-    color: rgba(248,245,239,0.65);
+    color: rgba(247,248,255,0.65);
     line-height: 1.65;
   }
-
+ 
   /* ── FEE CALC ── */
   #calculator {
     background: var(--cream);
@@ -358,7 +363,7 @@
   }
   .calc-result-label { font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.7; }
   .calc-result-value { font-family: 'Playfair Display', serif; font-size: 1.8rem; }
-
+ 
   /* ── SHOP CARDS ── */
   .shops-header {
     display: flex;
@@ -368,7 +373,7 @@
     flex-wrap: wrap;
     gap: 1rem;
   }
-
+ 
   .filter-tabs {
     display: flex;
     gap: 6px;
@@ -390,13 +395,13 @@
     color: var(--black);
     border-color: var(--gold);
   }
-
+ 
   .cards-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 1.5rem;
   }
-
+ 
   .product-card {
     background: white;
     border: 1px solid var(--border);
@@ -407,9 +412,9 @@
   }
   .product-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 16px 40px rgba(26,26,24,0.1);
+    box-shadow: 0 16px 40px rgba(10,10,30,0.1);
   }
-
+ 
   .card-img {
     aspect-ratio: 4/3;
     background: var(--cream);
@@ -427,7 +432,7 @@
     color: var(--gold);
     opacity: 0.6;
   }
-
+ 
   .card-badge {
     position: absolute;
     top: 10px;
@@ -439,10 +444,10 @@
     border-radius: 1px;
     font-weight: 500;
   }
-  .badge-hot { background: var(--gold); color: var(--black); }
-  .badge-new { background: var(--black); color: var(--gold-light); }
-  .badge-limited { background: #c0392b; color: white; }
-
+  .badge-hot { background: var(--accent); color: var(--black); }
+  .badge-new { background: var(--gold); color: var(--off-white); }
+  .badge-limited { background: var(--black); color: var(--accent); }
+ 
   .card-body { padding: 1.2rem; }
   .card-shop {
     font-size: 0.7rem;
@@ -489,7 +494,7 @@
     border-radius: 1px;
   }
   .card-btn:hover { background: var(--gold); color: var(--black); }
-
+ 
   /* ── FAQ ── */
   #faq { background: var(--section-bg); }
   .faq-list { max-width: 760px; margin-top: 2.5rem; }
@@ -541,10 +546,10 @@
     max-height: 200px;
     padding-bottom: 1.2rem;
   }
-
+ 
   /* ── CONTACT ── */
   #contact {
-    background: var(--black);
+    background: var(--gold);
     color: var(--off-white);
     text-align: center;
   }
@@ -558,7 +563,7 @@
   }
   .contact-card {
     background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(201,169,110,0.2);
+    border: 1px solid rgba(31,31,227,0.2);
     padding: 1.8rem 2.5rem;
     min-width: 200px;
     text-align: center;
@@ -568,26 +573,26 @@
     border-radius: 2px;
     display: block;
   }
-  .contact-card:hover { border-color: var(--gold); }
+  .contact-card:hover { border-color: var(--accent); }
   .contact-icon { font-size: 1.8rem; margin-bottom: 0.6rem; }
-  .contact-platform { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
+  .contact-platform { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
   .contact-handle { font-size: 1rem; font-weight: 400; }
-
+ 
   /* ── FOOTER ── */
   footer {
-    background: #111110;
-    color: rgba(248,245,239,0.4);
+    background: #07071A;
+    color: rgba(247,248,255,0.4);
     text-align: center;
     padding: 2rem;
     font-size: 0.78rem;
     letter-spacing: 0.05em;
   }
-  footer strong { color: var(--gold); }
-
+  footer strong { color: var(--accent); }
+ 
   /* ── HIDDEN CATEGORY ── */
   .category-section { display: none; }
   .category-section.active { display: block; }
-
+ 
   @media (max-width: 768px) {
     nav { padding: 1rem 1.2rem; }
     nav ul { display: none; }
@@ -595,11 +600,11 @@
     .calc-box { padding: 1.5rem; }
     .carousel-arrow { display: none; }
   }
-
+ 
   /* ── FLOW STEPS ── */
   .flow-step {
     background: rgba(255,255,255,0.07);
-    border: 1px solid rgba(201,169,110,0.2);
+    border: 1px solid rgba(31,31,227,0.2);
     padding: 1.4rem 1.2rem;
     text-align: center;
     flex: 1;
@@ -615,7 +620,7 @@
   }
   .flow-text {
     font-size: 0.85rem;
-    color: rgba(248,245,239,0.75);
+    color: rgba(247,248,255,0.75);
     line-height: 1.5;
   }
   .flow-arrow {
@@ -630,7 +635,7 @@
     .flow-arrow { display: none; }
     .flow-step { min-width: calc(50% - 0.75rem); }
   }
-
+ 
   /* ── CARD SPEC ── */
   .card-spec {
     font-size: 0.75rem;
@@ -643,7 +648,7 @@
 </style>
 </head>
 <body>
-
+ 
 <!-- NAVBAR -->
 <nav id="navbar">
   <a href="#" class="logo">CHJING<span>.</span>HOUSE</a>
@@ -660,65 +665,59 @@
     開放接單中
   </div>
 </nav>
-
+ 
 <!-- NOTICE BAR -->
 <div class="notice-bar" style="margin-top:64px;">
-  📦 台灣代購 · 7天內出貨 <span>|</span> 運費依體積：賣貨便 / 黑貓宅急便 <span>|</span> 金額較大者需付 50% 訂金 <span>|</span> 下單前請詳閱代購規則
+  📦 台灣代購 · 3天內出貨 <span>|</span> 運費依體積：賣貨便 / 黑貓宅急便 <span>|</span> 金額較大者需付 50% 訂金 <span>|</span> 下單前請詳閱代購規則
 </div>
-
+ 
 <!-- HERO CAROUSEL -->
 <div class="hero">
   <div class="slides" id="slides">
-
+ 
     <div class="slide">
-      <div class="slide-img" id="slide-bg-1">
-        <div class="card-img-placeholder">[ 輪播圖 1 — 請提供圖片 ]</div>
-      </div>
+      <div class="slide-img" id="slide-bg-1"></div>
       <div class="slide-content">
         <div class="slide-tag">精選代購服務</div>
-        <h1>讓購物<br>更輕鬆</h1>
-        <p>整合華泰名品城、IKEA、COSTCO，<br>一站代購、安心到家</p>
+        <h1>那就交給<br>我們吧 🤍</h1>
+        <p>因為忙碌、距離或時間限制，<br>沒辦法親自購買</p>
         <a href="#rules" class="btn-primary">查看代購規則</a>
       </div>
     </div>
-
+ 
     <div class="slide">
-      <div class="slide-img" id="slide-bg-2">
-        <div class="card-img-placeholder">[ 輪播圖 2 — 請提供圖片 ]</div>
-      </div>
+      <div class="slide-img" id="slide-bg-2"></div>
       <div class="slide-content">
-        <div class="slide-tag">華泰名品城</div>
-        <h1>精品名牌<br>代為採購</h1>
-        <p>LV、Gucci、Hermès 等名品，<br>專業代購、品質保證</p>
+        <div class="slide-tag">為你嚴選</div>
+        <h1>讓生活輕鬆<br>過成喜歡的樣子</h1>
+        <p>給忙碌生活的你 ✨</p>
         <a href="#huatai" class="btn-primary">瀏覽商店</a>
       </div>
     </div>
-
+ 
     <div class="slide">
-      <div class="slide-img" id="slide-bg-3">
-        <div class="card-img-placeholder">[ 輪播圖 3 — 請提供圖片 ]</div>
-      </div>
+      <div class="slide-img" id="slide-bg-3"></div>
       <div class="slide-content">
-        <div class="slide-tag">COSTCO × IKEA</div>
-        <h1>生活好物<br>批量代購</h1>
-        <p>COSTCO 量販好物、IKEA 居家精選，<br>合購更划算</p>
+        <div class="slide-tag">代購承諾</div>
+        <h1>為你選好<br>讓生活變好 ✨</h1>
+        <p>華泰名品城 · IKEA · COSTCO<br>一站代購、安心到家</p>
         <a href="#costco" class="btn-primary">立即選購</a>
       </div>
     </div>
-
+ 
   </div>
   <button class="carousel-arrow prev" onclick="changeSlide(-1)">&#8592;</button>
   <button class="carousel-arrow next" onclick="changeSlide(1)">&#8594;</button>
   <div class="carousel-controls" id="dots"></div>
 </div>
-
+ 
 <!-- RULES -->
 <section id="rules">
   <div class="container">
     <div class="section-label">代購規則</div>
     <div class="section-title">下單前請詳閱</div>
     <div class="section-divider" style="background:var(--gold);"></div>
-
+ 
     <!-- 代購流程 -->
     <div style="margin-bottom:3rem;">
       <div style="font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;">📌 代購流程</div>
@@ -748,19 +747,19 @@
         </div>
       </div>
     </div>
-
+ 
     <!-- 注意事項格子 -->
     <div style="font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;">⚠️ 注意事項</div>
     <div class="rules-grid">
       <div class="rule-item">
         <div class="rule-num">01</div>
         <div class="rule-title">台灣代購出貨</div>
-        <div class="rule-desc">所有商品皆為台灣代購，確認訂單後 7 天內出貨，商品效期皆會確認。</div>
+        <div class="rule-desc">所有商品皆為台灣代購，確認訂單後 3 天內出貨，商品效期皆會確認。</div>
       </div>
       <div class="rule-item">
         <div class="rule-num">02</div>
         <div class="rule-title">費用由小編報價</div>
-        <div class="rule-desc">代購費用以小編報價為準，可使用下方費用試算器預估參考金額。</div>
+        <div class="rule-desc">代購費用以小編報價為準，運費依商品體積另計，金額較大需先付 50% 訂金。</div>
       </div>
       <div class="rule-item">
         <div class="rule-num">03</div>
@@ -785,9 +784,9 @@
     </div>
   </div>
 </section>
-
-<!-- FEE CALCULATOR -->
-<section id="calculator">
+ 
+<!-- FEE CALCULATOR (暫時隱藏，之後再開放) -->
+<section id="calculator" style="display:none;">
   <div class="container" style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;">
     <div>
       <div class="section-label">費用試算</div>
@@ -818,7 +817,7 @@
     </div>
   </div>
 </section>
-
+ 
 <!-- HUATAI -->
 <section id="huatai" style="background:var(--section-bg);">
   <div class="container">
@@ -832,7 +831,7 @@
     <div class="cards-grid" id="huatai-grid"></div>
   </div>
 </section>
-
+ 
 <!-- IKEA -->
 <section id="ikea">
   <div class="container">
@@ -846,7 +845,7 @@
     <div class="cards-grid" id="ikea-grid"></div>
   </div>
 </section>
-
+ 
 <!-- COSTCO -->
 <section id="costco" style="background:var(--section-bg);">
   <div class="container">
@@ -860,7 +859,7 @@
     <div class="cards-grid" id="costco-grid"></div>
   </div>
 </section>
-
+ 
 <!-- FAQ -->
 <section id="faq">
   <div class="container">
@@ -870,14 +869,14 @@
     <div class="faq-list" id="faq-list"></div>
   </div>
 </section>
-
+ 
 <!-- CONTACT -->
 <section id="contact">
   <div class="container">
-    <div class="section-label" style="color:var(--gold);">聯絡我們</div>
+    <div class="section-label" style="color:var(--accent);">聯絡我們</div>
     <div class="section-title">準備好下單了嗎？</div>
-    <div class="section-divider" style="background:var(--gold);margin:0 auto 1rem;"></div>
-    <p style="color:rgba(248,245,239,0.6);font-size:0.95rem;">透過以下方式聯絡，我們會在 2 小時內回覆</p>
+    <div class="section-divider" style="background:var(--accent);margin:0 auto 1rem;"></div>
+    <p style="color:rgba(247,248,255,0.6);font-size:0.95rem;">透過以下方式聯絡，我們會在 2 小時內回覆</p>
     <div class="contact-grid">
       <a href="#" class="contact-card">
         <div class="contact-icon">💬</div>
@@ -894,14 +893,19 @@
         <div class="contact-platform">Email</div>
         <div class="contact-handle">order@chjing.house</div>
       </a>
+      <a href="#" class="contact-card">
+        <div class="contact-icon">🛍️</div>
+        <div class="contact-platform">Shopee 蝦皮</div>
+        <div class="contact-handle">CHJING.HOUSE</div>
+      </a>
     </div>
   </div>
 </section>
-
+ 
 <footer>
   <p>&copy; 2025 <strong>CHJING.HOUSE</strong> — 精選代購服務 · 台灣</p>
 </footer>
-
+ 
 <script>
 // ── DATA ──
 const huataiShops = [
@@ -916,7 +920,7 @@ const huataiShops = [
   { name: "Tory Burch 鞋款代購", shop: "Tory Burch · 華泰名品城", price: "時價報價", badge: null },
   { name: "Pandora 串珠 / 手鍊代購", shop: "Pandora · 華泰名品城", price: "時價報價", badge: "new" },
 ];
-
+ 
 const ikeaItems = [
   {
     name: "BÄSTIS 毛絮黏把",
@@ -999,7 +1003,7 @@ const ikeaItems = [
     material: "本體：鋼鐵（環氧塗層）｜輪腳：PP+PE"
   },
 ];
-
+ 
 const costcoItems = [
   { name: "Kirkland 有機特級初榨橄欖油 3L", shop: "COSTCO · 廚房", price: "約 NT$899", badge: "hot" },
   { name: "Kirkland 混合堅果禮盒 1.13kg", shop: "COSTCO · 零食", price: "約 NT$689", badge: "hot" },
@@ -1012,16 +1016,16 @@ const costcoItems = [
   { name: "Dryel 免洗機乾洗衣物清潔組", shop: "COSTCO · 居家", price: "約 NT$389", badge: null },
   { name: "Kirkland 羊毛薄夾克（多色）", shop: "COSTCO · 服飾", price: "約 NT$1,099", badge: "new" },
 ];
-
+ 
 const faqs = [
   { q: "如何下單購買？", a: "私訊 LINE 或 Instagram，提供商品名稱與圖片，小編確認庫存後回覆報價，確認金額後付款即完成下單。" },
-  { q: "費用怎麼計算？以什麼為準？", a: "費用以小編報價為準，可先使用上方費用試算器預估參考金額。運費依商品體積大小，使用賣貨便或黑貓宅急便計算，下單時會一併告知。" },
+  { q: "費用怎麼計算？以什麼為準？", a: "費用以小編報價為準。運費依商品體積大小，使用賣貨便或黑貓宅急便計算，下單時會一併告知。" },
   { q: "什麼情況需要付訂金？", a: "金額較大之訂單，需先支付 50% 訂金以確保雙方權益，餘款於出貨前結清。小編報價時會一併告知是否需要訂金。" },
-  { q: "多久可以收到商品？", a: "確認付款後，台灣代購 7 天內出貨。實際到貨時間依配送方式而定，賣貨便或黑貓宅急便約 1–3 個工作天到達。" },
+  { q: "多久可以收到商品？", a: "確認付款後，台灣代購 3 天內出貨。實際到貨時間依配送方式而定，賣貨便或黑貓宅急便約 1–3 個工作天到達。" },
   { q: "代購商品可以退換嗎？", a: "代購商品恕不接受退換貨，僅重大商品瑕疵（破損、明顯錯誤）除外。下單前請確認商品規格，並深思熟慮後再下單，謝謝。" },
   { q: "可以合購嗎？", a: "可以！歡迎揪朋友一起合購，特別是 COSTCO / IKEA 商品，合購可分攤運費更划算。有任何問題歡迎私訊詢問。" },
 ];
-
+ 
 // ── RENDER CARDS ──
 function renderCard(item, type) {
   const badgeMap = { hot: ['badge-hot','熱銷'], new: ['badge-new','新品'], limited: ['badge-limited','限量'] };
@@ -1038,16 +1042,15 @@ function renderCard(item, type) {
         <div class="card-shop">${item.shop}</div>
         <div class="card-name">${item.name}</div>
         ${specBlock}${matBlock}
-        <div class="card-price"><span>售價</span><strong>${item.price}</strong></div>
         <button class="card-btn" onclick="alert('請透過 LINE / IG 私訊下單！')">詢問代購</button>
       </div>
     </div>`;
 }
-
+ 
 document.getElementById('huatai-grid').innerHTML = huataiShops.map(i => renderCard(i,'huatai')).join('');
 document.getElementById('ikea-grid').innerHTML = ikeaItems.map(i => renderCard(i,'ikea')).join('');
 document.getElementById('costco-grid').innerHTML = costcoItems.map(i => renderCard(i,'costco')).join('');
-
+ 
 // ── FAQ ──
 const faqList = document.getElementById('faq-list');
 faqs.forEach((f, i) => {
@@ -1057,22 +1060,22 @@ faqs.forEach((f, i) => {
       <div class="faq-a">${f.a}</div>
     </div>`;
 });
-
+ 
 function toggleFaq(i) {
   const item = document.getElementById('faq-'+i);
   item.classList.toggle('open');
 }
-
+ 
 // ── CAROUSEL ──
 let cur = 0;
 const total = 3;
 const slidesEl = document.getElementById('slides');
 const dotsEl = document.getElementById('dots');
-
+ 
 for (let i = 0; i < total; i++) {
   dotsEl.innerHTML += `<div class="dot ${i===0?'active':''}" onclick="goSlide(${i})"></div>`;
 }
-
+ 
 function goSlide(n) {
   cur = n;
   slidesEl.style.transform = `translateX(-${cur * 100}%)`;
@@ -1082,7 +1085,7 @@ function changeSlide(dir) {
   goSlide((cur + dir + total) % total);
 }
 setInterval(() => changeSlide(1), 5000);
-
+ 
 // ── CALC ──
 function calcFee() {
   const price = parseFloat(document.getElementById('calc-price').value) || 0;
