@@ -1,0 +1,10 @@
+# robots.txt for CHJING.HOUSE 精選代購
+# https://chjinghouse.github.io/
+
+User-agent: *
+Allow: /
+Disallow: /index_2026*.html
+Disallow: /*.html.bak
+
+# Sitemap
+Sitemap: https://chjinghouse.github.io/sitemap.xml
