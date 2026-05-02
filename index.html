@@ -417,20 +417,24 @@
  
   .card-img {
     aspect-ratio: 4/3;
-    background: var(--cream);
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 3rem;
-    color: var(--border);
     position: relative;
+    overflow: hidden;
   }
   .card-img-placeholder {
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--accent);
+    text-align: center;
+    padding: 0 1rem;
+    line-height: 1.2;
     text-transform: uppercase;
-    color: var(--gold);
-    opacity: 0.6;
+    word-break: break-word;
   }
  
   .card-badge {
@@ -494,6 +498,73 @@
     border-radius: 1px;
   }
   .card-btn:hover { background: var(--gold); color: var(--black); }
+ 
+  /* ── TRIPS / 各國代購 ── */
+  .trips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .trip-card {
+    background: var(--off-white);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2.2rem 1.7rem 1.7rem;
+    position: relative;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .trip-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(10,10,30,0.08);
+  }
+  .trip-flag {
+    font-size: 3.5rem;
+    line-height: 1;
+    margin-bottom: 0.6rem;
+  }
+  .trip-status {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.2rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+  }
+  .status-open { background: var(--accent); color: var(--black); }
+  .status-coming { background: var(--gold); color: var(--off-white); }
+  .status-waitlist { background: rgba(31,31,227,0.08); color: var(--gold); border: 1px solid var(--border); }
+  .status-closed { background: rgba(0,0,0,0.06); color: var(--text-muted); }
+  .trip-country {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+  }
+  .trip-date {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 1.1rem;
+  }
+  .trip-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 1.4rem;
+  }
+  .trip-tag {
+    font-size: 0.75rem;
+    background: var(--cream);
+    color: var(--gold);
+    padding: 4px 11px;
+    border-radius: 12px;
+    font-weight: 500;
+  }
+  .trip-card .card-btn { width: 100%; }
  
   /* ── FAQ ── */
   #faq { background: var(--section-bg); }
@@ -574,7 +645,16 @@
     display: block;
   }
   .contact-card:hover { border-color: var(--accent); }
-  .contact-icon { font-size: 1.8rem; margin-bottom: 0.6rem; }
+  .contact-icon {
+    font-size: 1.8rem;
+    margin-bottom: 0.6rem;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+  .contact-icon svg { display: block; }
   .contact-platform { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
   .contact-handle { font-size: 1rem; font-weight: 400; }
  
@@ -656,6 +736,7 @@
     <li><a href="#rules">規則</a></li>
     <li><a href="#huatai">華泰名品城</a></li>
     <li><a href="#ikea">IKEA</a></li>
+    <li><a href="#trips">各國代購</a></li>
     <li><a href="#costco">COSTCO</a></li>
     <li><a href="#faq">FAQ</a></li>
     <li><a href="#contact">聯絡</a></li>
@@ -688,7 +769,7 @@
     <div class="slide">
       <div class="slide-img" id="slide-bg-2"></div>
       <div class="slide-content">
-        <div class="slide-tag">為你嚴選</div>
+        <div class="slide-tag">華泰名品城</div>
         <h1>讓生活輕鬆<br>過成喜歡的樣子</h1>
         <p>給忙碌生活的你 ✨</p>
         <a href="#huatai" class="btn-primary">瀏覽商店</a>
@@ -698,9 +779,9 @@
     <div class="slide">
       <div class="slide-img" id="slide-bg-3"></div>
       <div class="slide-content">
-        <div class="slide-tag">代購承諾</div>
+        <div class="slide-tag">COSTCO · IKEA</div>
         <h1>為你選好<br>讓生活變好 ✨</h1>
-        <p>華泰名品城 · IKEA · COSTCO<br>一站代購、安心到家</p>
+        <p>居家好物、量販批量代購<br>合購更划算</p>
         <a href="#costco" class="btn-primary">立即選購</a>
       </div>
     </div>
@@ -846,6 +927,23 @@
   </div>
 </section>
  
+<!-- TRIPS / 各國代購 -->
+<section id="trips" style="background:var(--section-bg);">
+  <div class="container">
+    <div class="shops-header">
+      <div>
+        <div class="section-label">各國代購</div>
+        <div class="section-title">看板娘旅途 ✈️</div>
+        <div class="section-divider"></div>
+        <p style="color:var(--text-muted);font-size:0.95rem;max-width:520px;line-height:1.7;margin-top:0.6rem;">
+          走到哪、買到哪 — 跟著旅程預訂，把當地限定帶回家
+        </p>
+      </div>
+    </div>
+    <div class="trips-grid" id="trips-grid"></div>
+  </div>
+</section>
+ 
 <!-- COSTCO -->
 <section id="costco" style="background:var(--section-bg);">
   <div class="container">
@@ -879,19 +977,40 @@
     <p style="color:rgba(247,248,255,0.6);font-size:0.95rem;">透過以下方式聯絡，我們會在 2 小時內回覆</p>
     <div class="contact-grid">
       <a href="#" class="contact-card">
-        <div class="contact-icon">💬</div>
+        <div class="contact-icon">
+          <svg viewBox="0 0 100 100" width="36" height="36" xmlns="http://www.w3.org/2000/svg" aria-label="LINE">
+            <rect width="100" height="100" rx="22" fill="#06C755"/>
+            <text x="50" y="62" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="-1">LINE</text>
+          </svg>
+        </div>
         <div class="contact-platform">LINE</div>
         <div class="contact-handle">@chjing.house</div>
       </a>
-      <a href="#" class="contact-card">
-        <div class="contact-icon">📸</div>
+      <a href="https://www.instagram.com/chjing.lab?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" class="contact-card">
+        <div class="contact-icon">
+          <svg viewBox="0 0 100 100" width="36" height="36" xmlns="http://www.w3.org/2000/svg" aria-label="Instagram">
+            <defs>
+              <radialGradient id="igGrad" cx="28%" cy="100%" r="120%">
+                <stop offset="0%" stop-color="#FED373"/>
+                <stop offset="25%" stop-color="#F15245"/>
+                <stop offset="55%" stop-color="#D92E7F"/>
+                <stop offset="80%" stop-color="#9B36B7"/>
+                <stop offset="100%" stop-color="#515ECF"/>
+              </radialGradient>
+            </defs>
+            <rect width="100" height="100" rx="24" fill="url(#igGrad)"/>
+            <rect x="22" y="22" width="56" height="56" rx="16" fill="none" stroke="#ffffff" stroke-width="7"/>
+            <circle cx="50" cy="50" r="13" fill="none" stroke="#ffffff" stroke-width="7"/>
+            <circle cx="72" cy="28" r="5" fill="#ffffff"/>
+          </svg>
+        </div>
         <div class="contact-platform">Instagram</div>
-        <div class="contact-handle">@chjing.house</div>
+        <div class="contact-handle">@chjing.lab</div>
       </a>
-      <a href="#" class="contact-card">
+      <a href="mailto:chjing.house@gmail.com" class="contact-card">
         <div class="contact-icon">📧</div>
         <div class="contact-platform">Email</div>
-        <div class="contact-handle">order@chjing.house</div>
+        <div class="contact-handle">chjing.house@gmail.com</div>
       </a>
       <a href="#" class="contact-card">
         <div class="contact-icon">🛍️</div>
@@ -903,22 +1022,147 @@
 </section>
  
 <footer>
-  <p>&copy; 2025 <strong>CHJING.HOUSE</strong> — 精選代購服務 · 台灣</p>
+  <p>&copy; 2026 <strong>CHJING.HOUSE</strong> — 精選代購服務 · 台灣</p>
 </footer>
  
 <script>
 // ── DATA ──
 const huataiShops = [
-  { name: "Louis Vuitton 精品包款代購", shop: "LV · 華泰名品城", price: "時價報價", badge: "hot" },
-  { name: "Gucci 皮夾 / 配件代購", shop: "Gucci · 華泰名品城", price: "時價報價", badge: null },
-  { name: "Hermès 絲巾 / 配件代購", shop: "Hermès · 華泰名品城", price: "時價報價", badge: "limited" },
-  { name: "Burberry 格紋圍巾代購", shop: "Burberry · 華泰名品城", price: "時價報價", badge: null },
-  { name: "Coach 包款 / 皮件代購", shop: "Coach · 華泰名品城", price: "時價報價", badge: "hot" },
-  { name: "Michael Kors 腕錶代購", shop: "MK · 華泰名品城", price: "時價報價", badge: null },
-  { name: "Longchamp 摺疊包代購", shop: "Longchamp · 華泰名品城", price: "時價報價", badge: "new" },
-  { name: "Kate Spade 手提包代購", shop: "Kate Spade · 華泰名品城", price: "時價報價", badge: null },
-  { name: "Tory Burch 鞋款代購", shop: "Tory Burch · 華泰名品城", price: "時價報價", badge: null },
-  { name: "Pandora 串珠 / 手鍊代購", shop: "Pandora · 華泰名品城", price: "時價報價", badge: "new" },
+  {
+    name: "POP MART 潮玩公仔代購",
+    shop: "POP MART · 華泰名品城",
+    badge: "hot",
+    specIcon: "🇨🇳",
+    spec: "中國當紅潮玩品牌，盲盒收藏首選",
+    matIcon: "🛍️",
+    material: "LABUBU、MOLLY、SKULLPANDA、DIMOO"
+  },
+  {
+    name: "PRADA 義大利精品代購",
+    shop: "PRADA · 華泰名品城",
+    badge: "hot",
+    specIcon: "🇮🇹",
+    spec: "義大利精品老牌，極簡設計感經典",
+    matIcon: "🛍️",
+    material: "三角金屬牌、Re-Nylon、皮夾、皮件"
+  },
+  {
+    name: "BURBERRY 英倫經典代購",
+    shop: "BURBERRY · 華泰名品城",
+    badge: null,
+    specIcon: "🇬🇧",
+    spec: "英國經典精品，標誌性 Check 格紋",
+    matIcon: "🛍️",
+    material: "風衣、圍巾、皮件、香水"
+  },
+  {
+    name: "BOTTEGA VENETA 編織皮件代購",
+    shop: "BV · 華泰名品城",
+    badge: null,
+    specIcon: "🇮🇹",
+    spec: "義大利低調奢華，職人編織工藝",
+    matIcon: "🛍️",
+    material: "Cassette、Pouch、Andiamo、編織皮件"
+  },
+  {
+    name: "BALENCIAGA 巴黎世家代購",
+    shop: "BALENCIAGA · 華泰名品城",
+    badge: "hot",
+    specIcon: "🇪🇸",
+    spec: "巴黎前衛精品，街頭與高訂結合",
+    matIcon: "🛍️",
+    material: "Triple S、Hourglass、機車包、字母 Tee"
+  },
+  {
+    name: "SAINT LAURENT (YSL) 代購",
+    shop: "YSL · 華泰名品城",
+    badge: null,
+    specIcon: "🇫🇷",
+    spec: "法國經典時裝精品，搖滾優雅美學",
+    matIcon: "🛍️",
+    material: "LOULOU、KATE 鏈包、皮件、彩妝"
+  },
+  {
+    name: "ALL SAINTS 英倫龐克代購",
+    shop: "ALL SAINTS · 華泰名品城",
+    badge: null,
+    specIcon: "🇬🇧",
+    spec: "英國街頭風尚，皮件與騎士風格",
+    matIcon: "🛍️",
+    material: "皮衣、騎士夾克、字母 Tee、配件"
+  },
+  {
+    name: "ISSEY MIYAKE 三宅一生代購",
+    shop: "ISSEY MIYAKE · 華泰名品城",
+    badge: "limited",
+    specIcon: "🇯🇵",
+    spec: "日本設計大師，皺褶面料代名詞",
+    matIcon: "🛍️",
+    material: "BAOBAO 包、PLEATS PLEASE、香水"
+  },
+  {
+    name: "LOEWE 西班牙皇室精品代購",
+    shop: "LOEWE · 華泰名品城",
+    badge: "limited",
+    specIcon: "🇪🇸",
+    spec: "西班牙皇室御用，現代雕塑感工藝",
+    matIcon: "🛍️",
+    material: "Puzzle Bag、Hammock、Flamenco、Goya"
+  },
+  {
+    name: "THE NORTH FACE 機能服飾代購",
+    shop: "THE NORTH FACE · 華泰名品城",
+    badge: "hot",
+    specIcon: "🇺🇸",
+    spec: "美國戶外機能領導品牌，四季實穿",
+    matIcon: "🛍️",
+    material: "1996 Nuptse 羽絨、機能外套、後背包"
+  },
+  {
+    name: "ONITSUKA TIGER 鬼塚虎代購",
+    shop: "ONITSUKA · 華泰名品城",
+    badge: null,
+    specIcon: "🇯🇵",
+    spec: "日本經典運動鞋品牌，復古日系優雅",
+    matIcon: "🛍️",
+    material: "MEXICO 66、SERRANO、TOKUTEN 鞋款"
+  },
+  {
+    name: "CELINE 賽琳代購",
+    shop: "CELINE · 華泰名品城",
+    badge: null,
+    specIcon: "🇫🇷",
+    spec: "法國簡約都會精品，極簡優雅美學",
+    matIcon: "🛍️",
+    material: "Triomphe、AVA、TEEN 包、太陽眼鏡"
+  },
+  {
+    name: "CHLOÉ 蔻依代購",
+    shop: "CHLOÉ · 華泰名品城",
+    badge: "new",
+    specIcon: "🇫🇷",
+    spec: "法國浪漫女性精品，飄逸波西米亞風",
+    matIcon: "🛍️",
+    material: "Marcie、Drew、Paddington、香水"
+  },
+  {
+    name: "MARTIN KIM 韓系設計師代購",
+    shop: "MARTIN KIM · 華泰名品城",
+    badge: "new",
+    specIcon: "🇰🇷",
+    spec: "韓國新銳設計師品牌，雅痞復古調性",
+    matIcon: "🛍️",
+    material: "印花襯衫、針織、復古設計單品"
+  },
+  {
+    name: "MARITHÉ + FRANÇOIS GIRBAUD 代購",
+    shop: "MARITHÉ · 華泰名品城",
+    badge: "new",
+    specIcon: "🇫🇷",
+    spec: "法國丹寧老牌，韓國重新詮釋的人氣 LOGO",
+    matIcon: "🛍️",
+    material: "LOGO Tee、丹寧、字母印花單品"
+  },
 ];
  
 const ikeaItems = [
@@ -1030,12 +1274,15 @@ const faqs = [
 function renderCard(item, type) {
   const badgeMap = { hot: ['badge-hot','熱銷'], new: ['badge-new','新品'], limited: ['badge-limited','限量'] };
   const badge = item.badge ? `<div class="card-badge ${badgeMap[item.badge][0]}">${badgeMap[item.badge][1]}</div>` : '';
-  const specBlock = item.spec ? `<div class="card-spec">📐 ${item.spec}</div>` : '';
-  const matBlock = item.material ? `<div class="card-spec" style="border-top:none;padding-top:0;">🧵 ${item.material}</div>` : '';
+  const specIcon = item.specIcon || '📐';
+  const matIcon = item.matIcon || '🧵';
+  const specBlock = item.spec ? `<div class="card-spec">${specIcon} ${item.spec}</div>` : '';
+  const matBlock = item.material ? `<div class="card-spec" style="border-top:none;padding-top:0;">${matIcon} ${item.material}</div>` : '';
+  const monogram = (item.shop || item.name || '').split('·')[0].trim();
   return `
     <div class="product-card">
       <div class="card-img">
-        <div class="card-img-placeholder">[ 圖片空白 ]</div>
+        <div class="card-img-placeholder">${monogram}</div>
         ${badge}
       </div>
       <div class="card-body">
@@ -1050,6 +1297,55 @@ function renderCard(item, type) {
 document.getElementById('huatai-grid').innerHTML = huataiShops.map(i => renderCard(i,'huatai')).join('');
 document.getElementById('ikea-grid').innerHTML = ikeaItems.map(i => renderCard(i,'ikea')).join('');
 document.getElementById('costco-grid').innerHTML = costcoItems.map(i => renderCard(i,'costco')).join('');
+ 
+// ── TRIPS / 各國代購 ──
+const trips = [
+  {
+    flag: "🇯🇵",
+    country: "日本",
+    status: "open",
+    statusText: "開放預訂",
+    date: "📅 行程日期請私訊洽詢",
+    items: ["藥妝保養", "UNIQLO", "無印良品", "潮牌限定", "零食", "偶像周邊"]
+  },
+  {
+    flag: "🇰🇷",
+    country: "韓國",
+    status: "open",
+    statusText: "開放預訂",
+    date: "📅 行程日期請私訊洽詢",
+    items: ["化妝品", "保養品", "K-POP 周邊", "服飾", "零食", "限量聯名"]
+  },
+  {
+    flag: "🇹🇼",
+    country: "台灣",
+    status: "open",
+    statusText: "全年開放",
+    date: "📅 全台代購、隨時下單",
+    items: ["華泰名品城", "IKEA", "COSTCO", "全台伴手禮", "區域限定"]
+  },
+];
+const tripStatusMap = {
+  open: ['status-open', '開放預訂'],
+  coming: ['status-coming', '即將出發'],
+  waitlist: ['status-waitlist', '候補中'],
+  closed: ['status-closed', '已結束']
+};
+function renderTrip(t) {
+  const sCls = tripStatusMap[t.status][0];
+  const sTxt = t.statusText || tripStatusMap[t.status][1];
+  const itemTags = t.items.map(i => `<span class="trip-tag">${i}</span>`).join('');
+  return `
+    <div class="trip-card">
+      <div class="trip-status ${sCls}">${sTxt}</div>
+      <div class="trip-flag">${t.flag}</div>
+      <div class="trip-country">${t.country}</div>
+      <div class="trip-date">${t.date}</div>
+      <div class="trip-items">${itemTags}</div>
+      <button class="card-btn" onclick="alert('請透過 LINE / IG 私訊下單！')">詢問代購</button>
+    </div>`;
+}
+document.getElementById('trips-grid').innerHTML = trips.map(renderTrip).join('');
  
 // ── FAQ ──
 const faqList = document.getElementById('faq-list');
