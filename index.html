@@ -46,6 +46,17 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231F1FE3'/%3E%3Ctext x='50' y='66' font-family='Georgia,serif' font-size='44' font-weight='700' fill='%23D4FF00' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231F1FE3'/%3E%3Ctext x='50' y='66' font-family='Georgia,serif' font-size='44' font-weight='700' fill='%23D4FF00' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
  
+<!-- ═══════════════ Google Analytics 4 (GA4) ═══════════════ -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YZV3YEQK6L"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-YZV3YEQK6L', {
+    'anonymize_ip': true
+  });
+</script>
+ 
 <!-- ═══════════════ Structured Data: Organization ═══════════════ -->
 <script type="application/ld+json">
 {
@@ -589,13 +600,23 @@
   }
  
   .card-img {
-    aspect-ratio: 4/3;
+    aspect-ratio: 1/1;
     background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     overflow: hidden;
+  }
+  .card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  .product-card:hover .card-img img {
+    transform: scale(1.04);
   }
   .card-img-placeholder {
     font-family: 'Playfair Display', serif;
@@ -927,6 +948,7 @@
     <li><a href="#ikea">IKEA</a></li>
     <li><a href="#trips">各國代購</a></li>
     <li><a href="#costco">COSTCO</a></li>
+    <li><a href="blog/index.html">部落格</a></li>
     <li><a href="#faq">FAQ</a></li>
     <li><a href="#contact">聯絡</a></li>
   </ul>
@@ -1227,7 +1249,9 @@ const huataiShops = [
     specIcon: "🇨🇳",
     spec: "中國當紅潮玩品牌，盲盒收藏首選",
     matIcon: "🛍️",
-    material: "LABUBU、MOLLY、SKULLPANDA、DIMOO"
+    material: "LABUBU、MOLLY、SKULLPANDA、DIMOO",
+    image: "images/brands/POP_MART.jpg",
+    alt: "POP MART 華泰名品城店面招牌"
   },
   {
     name: "PRADA 義大利精品代購",
@@ -1236,7 +1260,9 @@ const huataiShops = [
     specIcon: "🇮🇹",
     spec: "義大利精品老牌，極簡設計感經典",
     matIcon: "🛍️",
-    material: "三角金屬牌、Re-Nylon、皮夾、皮件"
+    material: "三角金屬牌、Re-Nylon、皮夾、皮件",
+    image: "images/brands/PRADA_front.jpg",
+    alt: "PRADA 華泰名品城店面招牌"
   },
   {
     name: "BURBERRY 英倫經典代購",
@@ -1245,7 +1271,9 @@ const huataiShops = [
     specIcon: "🇬🇧",
     spec: "英國經典精品，標誌性 Check 格紋",
     matIcon: "🛍️",
-    material: "風衣、圍巾、皮件、香水"
+    material: "風衣、圍巾、皮件、香水",
+    image: "images/brands/BURBERRY.jpg",
+    alt: "BURBERRY 華泰名品城店面招牌"
   },
   {
     name: "BOTTEGA VENETA 編織皮件代購",
@@ -1254,7 +1282,9 @@ const huataiShops = [
     specIcon: "🇮🇹",
     spec: "義大利低調奢華，職人編織工藝",
     matIcon: "🛍️",
-    material: "Cassette、Pouch、Andiamo、編織皮件"
+    material: "Cassette、Pouch、Andiamo、編織皮件",
+    image: "images/brands/BOTTEGA_VENETA.jpg",
+    alt: "BOTTEGA VENETA 華泰名品城店面招牌"
   },
   {
     name: "BALENCIAGA 巴黎世家代購",
@@ -1263,7 +1293,9 @@ const huataiShops = [
     specIcon: "🇪🇸",
     spec: "巴黎前衛精品，街頭與高訂結合",
     matIcon: "🛍️",
-    material: "Triple S、Hourglass、機車包、字母 Tee"
+    material: "Triple S、Hourglass、機車包、字母 Tee",
+    image: "images/brands/BALENCIAGA.jpg",
+    alt: "BALENCIAGA 華泰名品城店面招牌"
   },
   {
     name: "SAINT LAURENT (YSL) 代購",
@@ -1272,7 +1304,9 @@ const huataiShops = [
     specIcon: "🇫🇷",
     spec: "法國經典時裝精品，搖滾優雅美學",
     matIcon: "🛍️",
-    material: "LOULOU、KATE 鏈包、皮件、彩妝"
+    material: "LOULOU、KATE 鏈包、皮件、彩妝",
+    image: "images/brands/SAINT_LAURENT.jpg",
+    alt: "SAINT LAURENT 華泰名品城店面招牌"
   },
   {
     name: "ALL SAINTS 英倫龐克代購",
@@ -1281,7 +1315,9 @@ const huataiShops = [
     specIcon: "🇬🇧",
     spec: "英國街頭風尚，皮件與騎士風格",
     matIcon: "🛍️",
-    material: "皮衣、騎士夾克、字母 Tee、配件"
+    material: "皮衣、騎士夾克、字母 Tee、配件",
+    image: "images/brands/ALLSAINTS.jpg",
+    alt: "ALL SAINTS 華泰名品城店面招牌"
   },
   {
     name: "ISSEY MIYAKE 三宅一生代購",
@@ -1290,7 +1326,9 @@ const huataiShops = [
     specIcon: "🇯🇵",
     spec: "日本設計大師，皺褶面料代名詞",
     matIcon: "🛍️",
-    material: "BAOBAO 包、PLEATS PLEASE、香水"
+    material: "BAOBAO 包、PLEATS PLEASE、香水",
+    image: "images/brands/ISSEY_MIYAKE.jpg",
+    alt: "ISSEY MIYAKE 華泰名品城櫥窗"
   },
   {
     name: "LOEWE 西班牙皇室精品代購",
@@ -1299,7 +1337,9 @@ const huataiShops = [
     specIcon: "🇪🇸",
     spec: "西班牙皇室御用，現代雕塑感工藝",
     matIcon: "🛍️",
-    material: "Puzzle Bag、Hammock、Flamenco、Goya"
+    material: "Puzzle Bag、Hammock、Flamenco、Goya",
+    image: "images/brands/LOEWE.jpg",
+    alt: "LOEWE 華泰名品城店面招牌"
   },
   {
     name: "THE NORTH FACE 機能服飾代購",
@@ -1317,7 +1357,9 @@ const huataiShops = [
     specIcon: "🇯🇵",
     spec: "日本經典運動鞋品牌，復古日系優雅",
     matIcon: "🛍️",
-    material: "MEXICO 66、SERRANO、TOKUTEN 鞋款"
+    material: "MEXICO 66、SERRANO、TOKUTEN 鞋款",
+    image: "images/brands/Onitsuka_Tiger.jpg",
+    alt: "Onitsuka Tiger 華泰名品城店內 Logo"
   },
   {
     name: "CELINE 賽琳代購",
@@ -1326,7 +1368,9 @@ const huataiShops = [
     specIcon: "🇫🇷",
     spec: "法國簡約都會精品，極簡優雅美學",
     matIcon: "🛍️",
-    material: "Triomphe、AVA、TEEN 包、太陽眼鏡"
+    material: "Triomphe、AVA、TEEN 包、太陽眼鏡",
+    image: "images/brands/CELINE.jpg",
+    alt: "CELINE 華泰名品城店面招牌"
   },
   {
     name: "CHLOÉ 蔻依代購",
@@ -1335,7 +1379,9 @@ const huataiShops = [
     specIcon: "🇫🇷",
     spec: "法國浪漫女性精品，飄逸波西米亞風",
     matIcon: "🛍️",
-    material: "Marcie、Drew、Paddington、香水"
+    material: "Marcie、Drew、Paddington、香水",
+    image: "images/brands/CHLOE.jpg",
+    alt: "Chloé 華泰名品城店面招牌"
   },
   {
     name: "MARTIN KIM 韓系設計師代購",
@@ -1353,7 +1399,9 @@ const huataiShops = [
     specIcon: "🇫🇷",
     spec: "法國丹寧老牌，韓國重新詮釋的人氣 LOGO",
     matIcon: "🛍️",
-    material: "LOGO Tee、丹寧、字母印花單品"
+    material: "LOGO Tee、丹寧、字母印花單品",
+    image: "images/brands/MARITHE_GIRBAUD.jpg",
+    alt: "Marithé François Girbaud 華泰名品城店面招牌"
   },
 ];
  
@@ -1471,10 +1519,13 @@ function renderCard(item, type) {
   const specBlock = item.spec ? `<div class="card-spec">${specIcon} ${item.spec}</div>` : '';
   const matBlock = item.material ? `<div class="card-spec" style="border-top:none;padding-top:0;">${matIcon} ${item.material}</div>` : '';
   const monogram = (item.shop || item.name || '').split('·')[0].trim();
+  const imgBlock = item.image
+    ? `<img src="${item.image}" alt="${item.alt || item.name}" loading="lazy">`
+    : `<div class="card-img-placeholder">${monogram}</div>`;
   return `
     <div class="product-card">
       <div class="card-img">
-        <div class="card-img-placeholder">${monogram}</div>
+        ${imgBlock}
         ${badge}
       </div>
       <div class="card-body">
