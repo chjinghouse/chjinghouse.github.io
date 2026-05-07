@@ -608,6 +608,11 @@
     position: relative;
     overflow: hidden;
   }
+  /* COSTCO 卡片改用 4:3 比例呈現實拍商品照 */
+  #costco-grid .card-img {
+    aspect-ratio: 4/3;
+    background: #f4f4f4;
+  }
   .card-img img {
     width: 100%;
     height: 100%;
@@ -1489,16 +1494,385 @@ const ikeaItems = [
 ];
  
 const costcoItems = [
-  { name: "Kirkland 有機特級初榨橄欖油 3L", shop: "COSTCO · 廚房", price: "約 NT$899", badge: "hot" },
-  { name: "Kirkland 混合堅果禮盒 1.13kg", shop: "COSTCO · 零食", price: "約 NT$689", badge: "hot" },
-  { name: "Tide 冷洗精 4.43L", shop: "COSTCO · 清潔", price: "約 NT$549", badge: null },
-  { name: "Bounce 衣物柔軟烘乾片 160片", shop: "COSTCO · 清潔", price: "約 NT$399", badge: null },
-  { name: "Kirkland 鮭魚油膠囊 400粒", shop: "COSTCO · 保健", price: "約 NT$799", badge: "hot" },
-  { name: "Vitamix A2300 調理機", shop: "COSTCO · 廚電", price: "約 NT$17,900", badge: null },
-  { name: "Kodiak Cakes 蛋白質鬆餅粉 2.72kg", shop: "COSTCO · 食品", price: "約 NT$599", badge: "new" },
-  { name: "Kiehl's 亮妍保濕防曬乳 SPF50 套組", shop: "COSTCO · 保養", price: "約 NT$1,299", badge: null },
-  { name: "Dryel 免洗機乾洗衣物清潔組", shop: "COSTCO · 居家", price: "約 NT$389", badge: null },
-  { name: "Kirkland 羊毛薄夾克（多色）", shop: "COSTCO · 服飾", price: "約 NT$1,099", badge: "new" },
+  // ── ☕ 咖啡飲品 ──
+  {
+    name: "cafein 濾掛咖啡 綜合風味",
+    shop: "COSTCO · 咖啡",
+    price: "小編報價",
+    badge: "hot",
+    specIcon: "🇹🇼",
+    spec: "台灣品牌，多種烘焙度濾掛組合",
+    matIcon: "☕",
+    material: "100% 阿拉比卡咖啡豆，淺中深焙混搭",
+    image: "https://chjinghouse.github.io/images/costco/cafein_drip_coffee.jpg",
+    alt: "cafein 濾掛咖啡綜合風味"
+  },
+  {
+    name: "Caffitaly 義式咖啡膠囊 5 種風味",
+    shop: "COSTCO · 咖啡",
+    price: "小編報價",
+    badge: null,
+    specIcon: "🇮🇹",
+    spec: "義大利原裝膠囊，5 款風味嚴選",
+    matIcon: "☕",
+    material: "阿拉比卡 + 羅布斯塔咖啡豆",
+    image: "https://chjinghouse.github.io/images/costco/caffitaly_espresso_5flavors.jpg",
+    alt: "Caffitaly 義式咖啡膠囊 5 種風味"
+  },
+  {
+    name: "星巴克 咖啡膠囊 60 入",
+    shop: "COSTCO · 咖啡",
+    price: "小編報價",
+    badge: "hot",
+    specIcon: "🇺🇸",
+    spec: "美國 Starbucks，Nespresso 相容膠囊",
+    matIcon: "☕",
+    material: "100% 阿拉比卡咖啡豆，多款烘焙度",
+    image: "https://chjinghouse.github.io/images/costco/starbucks_capsule_60.jpg",
+    alt: "星巴克咖啡膠囊 60 入"
+  },
+  {
+    name: "星巴克 黃金烘焙咖啡豆 (Veranda)",
+    shop: "COSTCO · 咖啡",
+    price: "小編報價",
+    badge: null,
+    specIcon: "🇺🇸",
+    spec: "美國 Starbucks 輕度烘焙，溫和滑順",
+    matIcon: "☕",
+    material: "100% 阿拉比卡咖啡豆",
+    image: "https://chjinghouse.github.io/images/costco/starbucks_veranda_blend.jpg",
+    alt: "星巴克 Veranda Blend 咖啡豆"
+  },
+ 
+  // ── 🍬 零食糖果 ──
+  {
+    name: "Airwaves 超涼口香糖 5 入裝",
+    shop: "COSTCO · 零食",
+    price: "小編報價",
+    badge: null,
+    specIcon: "🇳🇿",
+    spec: "紐澳製造，箭牌出品超涼系列",
+    matIcon: "🍬",
+    material: "木糖醇、薄荷腦、尤加利精油",
+    image: "https://chjinghouse.github.io/images/costco/airwaves_super_5pack.jpg",
+    alt: "Airwaves 超涼口香糖 5 入"
+  },
+  {
+    name: "Eclipse 薄荷錠",
+    shop: "COSTCO · 零食",
+    price: "小編報價",
+    badge: null,
+    specIcon: "🇺🇸",
+    spec: "美國 Wrigley 出品，無糖薄荷錠",
+    matIcon: "🍬",
+    material: "山梨糖醇、薄荷油、無糖配方",
+    image: "https://chjinghouse.github.io/images/costco/eclipse_mint_tablets.jpg",
+    alt: "Eclipse 薄荷錠"
+  },
+  {
+    name: "Haribo 哈瑞寶 金熊軟糖",
+    shop: "COSTCO · 零食",
+    price: "小編報價",
+    badge: "hot",
+    specIcon: "🇩🇪",
+    spec: "德國原裝經典軟糖，量販大包裝",
+    matIcon: "🍬",
+    material: "葡萄糖漿、明膠、果汁、天然香料",
+    image: "https://chjinghouse.github.io/images/costco/haribo_goldbaren.jpg",
+    alt: "Haribo 哈瑞寶金熊軟糖"
+  },
+  {
+    name: "喜馬拉雅鹽 檸檬糖",
+    shop: "COSTCO · 零食",
+    price: "小編報價",
+    badge: "new",
+    specIcon: "🇮🇹",
+    spec: "義大利進口，鹹甜清爽風味",
+    matIcon: "🍬",
+    material: "義大利檸檬汁、喜馬拉雅玫瑰鹽",
+    image: "https://chjinghouse.github.io/images/costco/lemon_candy_himalaya_salt.jpg",
+    alt: "喜馬拉雅鹽檸檬糖"
+  },
+ 
+  // ── 🥢 食品調味 ──
+  {
+    name: "Daisho 大昌 黑胡椒鹽",
+    shop: "COSTCO · 食品",
+    price: "小編報價",
+    badge: null,
+    specIcon: "🇯🇵",
+    spec: "日本大昌出品，BBQ 與烤物萬用調味",
+    matIcon: "🥢",
+    material: "黑胡椒、海鹽、香辛料",
+    image: "https://chjinghouse.github.io/images/costco/daisho_pepper_salt.jpg",
+    alt: "Daisho 大昌胡椒鹽"
+  },
+  {
+    name: "Heinz 亨氏 番茄醬",
+    shop: "COSTCO · 食品",
+    price: "小編報價",
+    badge: "hot",
+    specIcon: "🇺🇸",
+    spec: "美國 Heinz 經典款，量販大瓶裝",
+    matIcon: "🥢",
+    material: "番茄濃縮汁、白醋、糖、鹽",
+    image: "https://chjinghouse.github.io/images/costco/heinz_tomato_ketchup.jpg",
+    alt: "Heinz 亨氏番茄醬"
+  },
+ 
+  // ── 🧴 居家清潔 ──
+  {
+    name: "Combat 巧滅 蟑螂屋",
+    shop: "COSTCO · 清潔",
+    price: "小編報價",
+    badge: null,
+    specIcon: "🇺🇸",
+    spec: "美國 Henkel 集團，居家防蟑連窩端",
+    matIcon: "🧴",
+    material: "費布尼殺蟲誘餌劑（Fipronil）",
+    image: "https://chjinghouse.github.io/images/costco/combat_cockroach_killer.jpg",
+    alt: "Combat 巧滅蟑螂屋"
+  },
+  {
+    name: "Fabreze 風倍清 浴室防霉",
+    shop: "COSTCO · 清潔",
+    price: "小編報價",
+    badge: null,
+    specIcon: "🇯🇵",
+    spec: "日本進口防霉煙霧劑，浴室必備",
+    matIcon: "🧴",
+    material: "銀離子抗菌成分、二氧化氯",
+    image: "https://chjinghouse.github.io/images/costco/fabreze_bathroom_antimold.jpg",
+    alt: "Fabreze 風倍清浴室防霉"
+  },
+  {
+    name: "Fabreze 風倍清 頂級除菌噴霧",
+    shop: "COSTCO · 清潔",
+    price: "小編報價",
+    badge: "hot",
+    specIcon: "🇯🇵",
+    spec: "日本頂級版，去味抗菌一次完成",
+    matIcon: "🧴",
+    material: "環糊精、植物萃取除菌劑",
+    image: "https://chjinghouse.github.io/images/costco/fabreze_premium_spray.jpg",
+    alt: "Fabreze 頂級除菌噴霧"
+  },
+  {
+    name: "IM SEA 弱酸性 洗碗機洗碗錠",
+    shop: "COSTCO · 清潔",
+    price: "小編報價",
+    badge: "new",
+    specIcon: "🇰🇷",
+    spec: "韓國弱酸配方，敏感肌可用",
+    matIcon: "🧴",
+    material: "植物界面活性劑、酵素分解油垢",
+    image: "https://chjinghouse.github.io/images/costco/im_sea_mild_dishwasher_pods.jpg",
+    alt: "IM SEA 洗碗機洗碗錠"
+  },
+ 
+  // ── 🧺 洗衣護理 ──
+  {
+    name: "蘭諾 Lenor 抗菌芳香豆",
+    shop: "COSTCO · 洗衣",
+    price: "小編報價",
+    badge: "hot",
+    specIcon: "🇯🇵",
+    spec: "日本進口 P&G 出品，長效香氛",
+    matIcon: "🧺",
+    material: "抗菌成分、緩釋香氛膠囊",
+    image: "https://chjinghouse.github.io/images/costco/lenor_antibac_beads.jpg",
+    alt: "蘭諾抗菌芳香豆"
+  },
+  {
+    name: "Persil 室內晾乾洗衣球",
+    shop: "COSTCO · 洗衣",
+    price: "小編報價",
+    badge: null,
+    specIcon: "🇩🇪",
+    spec: "德國原裝室內晾乾配方，雨季神救援",
+    matIcon: "🧺",
+    material: "酵素 + 表面活性劑、抗菌防霉",
+    image: "https://chjinghouse.github.io/images/costco/persil_discs_indoor_dry.jpg",
+    alt: "Persil 室內晾乾洗衣球"
+  },
+ 
+  // ── 💧 淨水 ──
+  {
+    name: "Brita Style XL 濾水壺",
+    shop: "COSTCO · 廚房",
+    price: "小編報價",
+    badge: null,
+    specIcon: "🇩🇪",
+    spec: "德國 Brita 大容量 3.6L 濾水壺",
+    matIcon: "💧",
+    material: "食品級塑料 + Maxtra Pro 濾芯",
+    image: "https://chjinghouse.github.io/images/costco/brita_style_xl.jpg",
+    alt: "Brita Style XL 濾水壺"
+  },
+ 
+  // ── 🦷 口腔護理 ──
+  {
+    name: "3M 細滑牙線棒",
+    shop: "COSTCO · 個人護理",
+    price: "小編報價",
+    badge: null,
+    specIcon: "🇺🇸",
+    spec: "美國 3M 量販家庭號，多入優惠",
+    matIcon: "🦷",
+    material: "高韌性 PE 牙線、食品級塑料柄",
+    image: "https://chjinghouse.github.io/images/costco/3M_dental_flosser.jpg",
+    alt: "3M 細滑牙線棒"
+  },
+  {
+    name: "Oral-B iO 替換刷頭",
+    shop: "COSTCO · 個人護理",
+    price: "小編報價",
+    badge: null,
+    specIcon: "🇩🇪",
+    spec: "德國百靈，iO 系列電動牙刷專用刷頭",
+    matIcon: "🦷",
+    material: "高密度尼龍刷毛、人體工學圓頭",
+    image: "https://chjinghouse.github.io/images/costco/oralb_io_brush_heads.jpg",
+    alt: "Oral-B iO 替換刷頭"
+  },
+  {
+    name: "Philips Sonicare 5500 音波震動牙刷",
+    shop: "COSTCO · 個人護理",
+    price: "小編報價",
+    badge: "hot",
+    specIcon: "🇳🇱",
+    spec: "荷蘭 Philips，每分鐘 6.2 萬次音波",
+    matIcon: "🦷",
+    material: "鋰電池、IPX7 防水機身、3 種模式",
+    image: "https://chjinghouse.github.io/images/costco/philips_sonicare_5500.jpg",
+    alt: "Philips Sonicare 5500 音波牙刷"
+  },
+  {
+    name: "Philips Sonicare Optimal 替換刷頭",
+    shop: "COSTCO · 個人護理",
+    price: "小編報價",
+    badge: null,
+    specIcon: "🇳🇱",
+    spec: "Sonicare 通用刷頭，多入家庭包",
+    matIcon: "🦷",
+    material: "DuPont 杜邦尼龍刷毛",
+    image: "https://chjinghouse.github.io/images/costco/philips_sonicare_optimal.jpg",
+    alt: "Philips Sonicare Optimal 刷頭"
+  },
+ 
+  // ── 🌞 美容保養 ──
+  {
+    name: "Allie 光澤美肌 防曬乳",
+    shop: "COSTCO · 美妝",
+    price: "小編報價",
+    badge: "hot",
+    specIcon: "🇯🇵",
+    spec: "日本 KANEBO 集團，超防水抗汗",
+    matIcon: "🌞",
+    material: "SPF50+ PA++++、玻尿酸保濕配方",
+    image: "https://chjinghouse.github.io/images/costco/allie_uv_sunscreen.jpg",
+    alt: "Allie 光澤美肌防曬乳"
+  },
+  {
+    name: "Neutrogena 露得清 雨韻沐浴乳",
+    shop: "COSTCO · 美妝",
+    price: "小編報價",
+    badge: null,
+    specIcon: "🇺🇸",
+    spec: "美國 Neutrogena 經典香氛沐浴乳",
+    matIcon: "🌞",
+    material: "草本萃取、甘油保濕配方",
+    image: "https://chjinghouse.github.io/images/costco/neutrogena_rainbath.jpg",
+    alt: "Neutrogena 雨韻沐浴乳"
+  },
+  {
+    name: "Torriden 5D 玻尿酸面膜",
+    shop: "COSTCO · 美妝",
+    price: "小編報價",
+    badge: "new",
+    specIcon: "🇰🇷",
+    spec: "韓國 Torriden 暢銷高保濕面膜",
+    matIcon: "🌞",
+    material: "5 種分子量玻尿酸、植萃保濕",
+    image: "https://chjinghouse.github.io/images/costco/torriden_dive_in_mask.jpg",
+    alt: "Torriden 5D 玻尿酸面膜"
+  },
+ 
+  // ── 👕 內衣襪子 ──
+  {
+    name: "Calvin Klein 男四角內褲",
+    shop: "COSTCO · 服飾",
+    price: "小編報價",
+    badge: null,
+    specIcon: "🇺🇸",
+    spec: "美國經典 CK 男內衣，多色多入裝",
+    matIcon: "🧵",
+    material: "95% 棉 + 5% 彈性纖維",
+    image: "https://chjinghouse.github.io/images/costco/calvin_klein_boxer_briefs.jpg",
+    alt: "Calvin Klein 男四角內褲"
+  },
+  {
+    name: "Calvin Klein 女運動內衣 (M / XL)",
+    shop: "COSTCO · 服飾",
+    price: "小編報價",
+    badge: null,
+    specIcon: "🇺🇸",
+    spec: "美國 CK 經典 Bralette，可選 M / XL",
+    matIcon: "🧵",
+    material: "95% 棉 + 5% 彈性纖維，無鋼圈",
+    image: "https://chjinghouse.github.io/images/costco/calvin_klein_bralette_m.jpg",
+    alt: "Calvin Klein 女運動內衣"
+  },
+  {
+    name: "Levi's 男四角內褲",
+    shop: "COSTCO · 服飾",
+    price: "小編報價",
+    badge: null,
+    specIcon: "🇺🇸",
+    spec: "美國 Levi's 牛仔老牌內衣系列",
+    matIcon: "🧵",
+    material: "95% 棉 + 5% 彈性纖維",
+    image: "https://chjinghouse.github.io/images/costco/levis_boxer_briefs.jpg",
+    alt: "Levi's 男四角內褲"
+  },
+  {
+    name: "PUMA 運動襪 12 入",
+    shop: "COSTCO · 服飾",
+    price: "小編報價",
+    badge: "hot",
+    specIcon: "🇩🇪",
+    spec: "德國 PUMA 經典 LOGO，12 雙超值組",
+    matIcon: "🧵",
+    material: "棉混紡、加厚毛圈、吸濕排汗",
+    image: "https://chjinghouse.github.io/images/costco/puma_socks_12pairs.jpg",
+    alt: "PUMA 運動襪 12 入"
+  },
+  {
+    name: "Tommy Hilfiger 運動襪",
+    shop: "COSTCO · 服飾",
+    price: "小編報價",
+    badge: null,
+    specIcon: "🇺🇸",
+    spec: "美國 Tommy 經典款，多色組合包",
+    matIcon: "🧵",
+    material: "棉混紡、加強腳跟與腳尖耐磨",
+    image: "https://chjinghouse.github.io/images/costco/tommy_hilfiger_socks.jpg",
+    alt: "Tommy Hilfiger 運動襪"
+  },
+ 
+  // ── 🔌 3C 配件 ──
+  {
+    name: "Looploop Lightning 充電線",
+    shop: "COSTCO · 3C",
+    price: "小編報價",
+    badge: "new",
+    specIcon: "🇺🇸",
+    spec: "Apple MFi 認證 Lightning 充電線",
+    matIcon: "🔌",
+    material: "TPE 線材、銅芯、強化端子",
+    image: "https://chjinghouse.github.io/images/costco/looploop_lightning_cables.jpg",
+    alt: "Looploop Lightning 充電線"
+  },
 ];
  
 const faqs = [
