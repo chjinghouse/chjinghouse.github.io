@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -613,6 +612,227 @@
   #costco-grid .card-img {
     aspect-ratio: 4/3;
     background: #f4f4f4;
+  }
+ 
+  /* ═══════════════ 購物車系統 ═══════════════ */
+  .card-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--gold);
+    margin: 0.5rem 0 0.65rem;
+  }
+ 
+  /* 浮動購物車按鈕 */
+  .fab-cart {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--gold);
+    color: var(--accent);
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(31,31,227,0.35);
+    z-index: 998;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .fab-cart:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 24px rgba(31,31,227,0.45);
+  }
+  .fab-cart-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: var(--accent);
+    color: var(--gold);
+    font-size: 0.7rem;
+    font-weight: 700;
+    min-width: 22px;
+    height: 22px;
+    border-radius: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 6px;
+    border: 2px solid white;
+  }
+ 
+  /* 購物車彈窗 */
+  .cart-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10,10,30,0.55);
+    z-index: 999;
+    display: flex;
+    justify-content: flex-end;
+    animation: cartFadeIn 0.2s;
+  }
+  @keyframes cartFadeIn { from { opacity: 0 } }
+  @keyframes cartSlideIn { from { transform: translateX(100%) } }
+  .cart-modal {
+    width: 100%;
+    max-width: 480px;
+    background: white;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    animation: cartSlideIn 0.25s ease-out;
+    overflow: hidden;
+  }
+  .cart-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: var(--gold);
+    color: white;
+  }
+  .cart-modal-header h3 { margin: 0; font-size: 1.15rem; font-weight: 600; }
+  .cart-close {
+    background: transparent; border: none; color: white;
+    font-size: 1.4rem; cursor: pointer; padding: 0.25rem 0.5rem;
+  }
+  .cart-close:hover { opacity: 0.7; }
+  .cart-modal-body { flex: 1; overflow-y: auto; padding: 1rem 1.5rem; }
+ 
+  /* 購物車空狀態 */
+  .cart-empty { text-align: center; padding: 3rem 1rem; color: var(--text-muted); }
+  .cart-empty-icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.4; }
+  .cart-empty-hint { font-size: 0.85rem; margin-bottom: 1.5rem; }
+ 
+  /* 購物車品項 */
+  .cart-items { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem; }
+  .cart-item {
+    display: grid;
+    grid-template-columns: 70px 1fr auto;
+    gap: 0.75rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .cart-item img, .cart-item-img-placeholder {
+    width: 70px; height: 70px;
+    object-fit: cover;
+    background: var(--section-bg);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem;
+  }
+  .cart-item-info { min-width: 0; }
+  .cart-item-shop { font-size: 0.7rem; color: var(--text-muted); margin-bottom: 0.15rem; }
+  .cart-item-name {
+    font-size: 0.88rem; font-weight: 600;
+    color: var(--text); margin-bottom: 0.3rem; line-height: 1.3;
+    word-break: break-word;
+  }
+  .cart-item-price { font-size: 0.85rem; color: var(--gold); font-weight: 600; }
+  .cart-item-controls {
+    display: flex; flex-direction: column;
+    align-items: flex-end; justify-content: space-between; gap: 0.5rem;
+  }
+  .cart-qty {
+    display: flex; align-items: center; gap: 0.4rem;
+    border: 1px solid var(--border); border-radius: 4px; padding: 0 0.2rem;
+  }
+  .qty-btn {
+    width: 24px; height: 24px;
+    background: transparent; border: none; cursor: pointer;
+    font-size: 1rem; color: var(--gold); font-weight: 700;
+  }
+  .qty-btn:hover { background: var(--section-bg); }
+  .qty-num { min-width: 20px; text-align: center; font-size: 0.85rem; font-weight: 600; }
+  .cart-remove {
+    background: transparent; border: none;
+    color: var(--text-muted); font-size: 0.75rem;
+    cursor: pointer; text-decoration: underline; padding: 0;
+  }
+  .cart-remove:hover { color: #d33; }
+ 
+  /* 小計 */
+  .cart-summary {
+    background: var(--section-bg);
+    padding: 1rem; border-radius: 4px;
+    margin-bottom: 1.5rem;
+  }
+  .cart-summary-row { display: flex; justify-content: space-between; align-items: baseline; font-size: 0.9rem; }
+  .cart-total { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--gold); }
+  .cart-summary-note { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem; }
+ 
+  /* 訂購人表單 */
+  .cart-form { display: flex; flex-direction: column; gap: 0.85rem; }
+  .cart-form h4 {
+    margin: 0 0 0.25rem; font-size: 0.95rem; color: var(--text);
+    padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);
+  }
+  .cart-form label {
+    display: flex; flex-direction: column; gap: 0.3rem;
+    font-size: 0.85rem; color: var(--text); font-weight: 500;
+  }
+  .required { color: #d33; }
+  .cart-form input, .cart-form textarea {
+    border: 1px solid var(--border); border-radius: 4px;
+    padding: 0.55rem 0.75rem; font-size: 0.9rem;
+    font-family: inherit; background: white;
+  }
+  .cart-form input:focus, .cart-form textarea:focus {
+    outline: none; border-color: var(--gold);
+  }
+  .cart-radio-group {
+    border: none; padding: 0; margin: 0;
+    display: flex; flex-direction: column; gap: 0.4rem;
+  }
+  .cart-radio-group legend {
+    font-size: 0.85rem; font-weight: 500; color: var(--text);
+    margin-bottom: 0.3rem; padding: 0;
+  }
+  .radio-label {
+    display: flex !important; flex-direction: row !important;
+    align-items: center; gap: 0.5rem;
+    font-weight: 400 !important; cursor: pointer;
+  }
+  .cart-actions { display: flex; gap: 0.75rem; margin-top: 0.5rem; }
+  .cart-clear-btn, .cart-submit-btn {
+    padding: 0.85rem 1rem; border-radius: 4px; border: none;
+    cursor: pointer; font-size: 0.95rem; font-weight: 600;
+    font-family: inherit; transition: opacity 0.15s, transform 0.15s;
+  }
+  .cart-clear-btn {
+    background: white; color: var(--text-muted);
+    border: 1px solid var(--border);
+  }
+  .cart-clear-btn:hover { color: #d33; border-color: #d33; }
+  .cart-submit-btn { background: var(--gold); color: var(--accent); flex: 1; }
+  .cart-submit-btn:hover { transform: translateY(-1px); opacity: 0.95; }
+  .cart-disclaimer {
+    font-size: 0.75rem; color: var(--text-muted);
+    text-align: center; margin: 0.5rem 0 0; line-height: 1.5;
+  }
+ 
+  /* Toast 通知 */
+  .cart-toast {
+    position: fixed; bottom: 100px; right: 24px;
+    background: var(--gold); color: var(--accent);
+    padding: 0.75rem 1.25rem; border-radius: 24px;
+    box-shadow: 0 6px 20px rgba(31,31,227,0.35);
+    z-index: 997; font-size: 0.85rem;
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.25s, transform 0.25s;
+    pointer-events: none;
+  }
+  .cart-toast.show { opacity: 1; transform: translateY(0); }
+ 
+  /* 行動裝置 */
+  @media (max-width: 600px) {
+    .cart-modal { max-width: 100%; }
+    .fab-cart { bottom: 16px; right: 16px; width: 54px; height: 54px; font-size: 1.4rem; }
+    .cart-toast { right: 16px; bottom: 86px; }
   }
   .card-img img {
     width: 100%;
@@ -1257,7 +1477,8 @@ const huataiShops = [
     matIcon: "🛍️",
     material: "LABUBU、MOLLY、SKULLPANDA、DIMOO",
     image: "https://chjinghouse.github.io/images/gloria_outlet/POP_MART.jpg",
-    alt: "POP MART 華泰名品城店面招牌"
+    alt: "POP MART 華泰名品城店面招牌",
+    price: 580   // ← 測試用（LABUBU 盲盒單抽價位），有 price 數字才會顯示「加入購物車」
   },
   {
     name: "PRADA 義大利精品代購",
@@ -1890,6 +2111,15 @@ const faqs = [
 ];
  
 // ── RENDER CARDS ──
+// ── 商品註冊（給購物車按 ID 取資料用）──
+const productById = new Map();
+let _nextProductId = 1;
+function registerProduct(item) {
+  const id = 'p' + (_nextProductId++);
+  productById.set(id, item);
+  return id;
+}
+ 
 function renderCard(item, type) {
   const badgeMap = { hot: ['badge-hot','熱銷'], new: ['badge-new','新品'], limited: ['badge-limited','限量'] };
   const badge = item.badge ? `<div class="card-badge ${badgeMap[item.badge][0]}">${badgeMap[item.badge][1]}</div>` : '';
@@ -1901,6 +2131,17 @@ function renderCard(item, type) {
   const imgBlock = item.image
     ? `<img src="${item.image}" alt="${item.alt || item.name}" loading="lazy">`
     : `<div class="card-img-placeholder">${monogram}</div>`;
+ 
+  // 有 numeric price → 顯示「加入購物車」；否則「詢問代購」
+  const productId = registerProduct(item);
+  const hasPrice = typeof item.price === 'number' && item.price > 0;
+  const priceBlock = hasPrice
+    ? `<div class="card-price">NT$${item.price.toLocaleString()}</div>`
+    : '';
+  const buttonBlock = hasPrice
+    ? `<button class="card-btn cart-btn" onclick="addToCart('${productId}')">加入購物車</button>`
+    : `<button class="card-btn" onclick="alert('此商品為報價型，請透過 LINE / IG 私訊小編詢價！')">詢問代購</button>`;
+ 
   return `
     <div class="product-card">
       <div class="card-img">
@@ -1911,7 +2152,8 @@ function renderCard(item, type) {
         <div class="card-shop">${item.shop}</div>
         <div class="card-name">${item.name}</div>
         ${specBlock}${matBlock}
-        <button class="card-btn" onclick="alert('請透過 LINE / IG 私訊下單！')">詢問代購</button>
+        ${priceBlock}
+        ${buttonBlock}
       </div>
     </div>`;
 }
@@ -1919,6 +2161,220 @@ function renderCard(item, type) {
 document.getElementById('huatai-grid').innerHTML = huataiShops.map(i => renderCard(i,'huatai')).join('');
 document.getElementById('ikea-grid').innerHTML = ikeaItems.map(i => renderCard(i,'ikea')).join('');
 document.getElementById('costco-grid').innerHTML = costcoItems.map(i => renderCard(i,'costco')).join('');
+ 
+// ═══════════════ 購物車系統 ═══════════════
+const CART_KEY = 'chjing_cart_v1';
+const FORM_BASE = 'https://docs.google.com/forms/d/e/1FAIpQLSe-J7H7Nr7cIWoLtdU9IQ0u4f1GeEkUT4AqK4usvHU04BDurg/viewform';
+const ENTRY = {
+  name:     'entry.1897807090',
+  line:     'entry.1029629968',
+  phone:    'entry.432468955',
+  delivery: 'entry.1880224527',
+  items:    'entry.1323441118',
+  total:    'entry.621268685',
+  note:     'entry.2004959993'
+};
+ 
+function getCart() {
+  try { return JSON.parse(localStorage.getItem(CART_KEY) || '[]'); }
+  catch (e) { return []; }
+}
+function saveCart(cart) {
+  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  updateCartBadge();
+}
+function getCartCount() { return getCart().reduce((s,it)=>s+it.qty,0); }
+function getCartTotal() { return getCart().reduce((s,it)=>s+it.price*it.qty,0); }
+ 
+function addToCart(productId) {
+  const product = productById.get(productId);
+  if (!product || !(product.price > 0)) return;
+  const cart = getCart();
+  const existing = cart.find(it => it.id === productId);
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    cart.push({
+      id: productId,
+      name: product.name,
+      shop: product.shop || '',
+      price: product.price,
+      image: product.image || '',
+      qty: 1
+    });
+  }
+  saveCart(cart);
+  showToast(`已加入購物車：${product.name}`);
+}
+ 
+function updateQty(productId, delta) {
+  const cart = getCart();
+  const item = cart.find(it => it.id === productId);
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0) { return removeFromCart(productId); }
+  saveCart(cart);
+  renderCartModal();
+}
+ 
+function removeFromCart(productId) {
+  saveCart(getCart().filter(it => it.id !== productId));
+  renderCartModal();
+}
+ 
+function clearCart() {
+  if (!confirm('確定要清空購物車？')) return;
+  saveCart([]);
+  renderCartModal();
+}
+ 
+function updateCartBadge() {
+  const badge = document.getElementById('fab-cart-badge');
+  if (!badge) return;
+  const count = getCartCount();
+  if (count > 0) {
+    badge.textContent = count > 99 ? '99+' : count;
+    badge.hidden = false;
+  } else {
+    badge.hidden = true;
+  }
+}
+ 
+function openCart() {
+  document.getElementById('cart-modal-overlay').hidden = false;
+  document.body.style.overflow = 'hidden';
+  renderCartModal();
+}
+function closeCart() {
+  document.getElementById('cart-modal-overlay').hidden = true;
+  document.body.style.overflow = '';
+}
+ 
+function escHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+ 
+function renderCartModal() {
+  const body = document.getElementById('cart-modal-body');
+  if (!body) return;
+  const cart = getCart();
+ 
+  if (cart.length === 0) {
+    body.innerHTML = `
+      <div class="cart-empty">
+        <div class="cart-empty-icon">🛒</div>
+        <p>購物車目前是空的</p>
+        <p class="cart-empty-hint">瀏覽商品並按「加入購物車」即可開始下單</p>
+        <button class="cart-submit-btn" style="max-width:200px;margin:0 auto;display:block;" onclick="closeCart()">繼續逛逛</button>
+      </div>`;
+    return;
+  }
+ 
+  const itemsHtml = cart.map(it => `
+    <div class="cart-item">
+      ${it.image ? `<img src="${escHtml(it.image)}" alt="${escHtml(it.name)}">` : '<div class="cart-item-img-placeholder">📦</div>'}
+      <div class="cart-item-info">
+        <div class="cart-item-shop">${escHtml(it.shop)}</div>
+        <div class="cart-item-name">${escHtml(it.name)}</div>
+        <div class="cart-item-price">NT$${it.price.toLocaleString()}</div>
+      </div>
+      <div class="cart-item-controls">
+        <div class="cart-qty">
+          <button class="qty-btn" onclick="updateQty('${it.id}',-1)" aria-label="減少">−</button>
+          <span class="qty-num">${it.qty}</span>
+          <button class="qty-btn" onclick="updateQty('${it.id}',1)" aria-label="增加">+</button>
+        </div>
+        <button class="cart-remove" onclick="removeFromCart('${it.id}')">移除</button>
+      </div>
+    </div>
+  `).join('');
+ 
+  body.innerHTML = `
+    <div class="cart-items">${itemsHtml}</div>
+    <div class="cart-summary">
+      <div class="cart-summary-row">
+        <span>商品小計（${getCartCount()} 件）</span>
+        <strong class="cart-total">NT$${getCartTotal().toLocaleString()}</strong>
+      </div>
+      <div class="cart-summary-note">＊運費依配送方式由小編另行報價</div>
+    </div>
+    <form class="cart-form" onsubmit="submitOrder(event)">
+      <h4>訂購人資料</h4>
+      <label>姓名 <span class="required">*</span>
+        <input type="text" name="name" required autocomplete="name">
+      </label>
+      <label>LINE ID <span class="required">*</span>
+        <input type="text" name="line" required placeholder="您的 LINE ID（不是暱稱）">
+      </label>
+      <label>手機號碼 <span class="required">*</span>
+        <input type="tel" name="phone" required pattern="09[0-9]{8}" placeholder="0912345678" autocomplete="tel">
+      </label>
+      <fieldset class="cart-radio-group">
+        <legend>取貨方式 <span class="required">*</span></legend>
+        <label class="radio-label"><input type="radio" name="delivery" value="賣貨便" required> 賣貨便</label>
+        <label class="radio-label"><input type="radio" name="delivery" value="黑貓"> 黑貓宅急便</label>
+      </fieldset>
+      <label>備註（選填）
+        <textarea name="note" rows="2" placeholder="例：希望週五前收到、商品顏色備案、合購對象等"></textarea>
+      </label>
+      <div class="cart-actions">
+        <button type="button" class="cart-clear-btn" onclick="clearCart()">清空</button>
+        <button type="submit" class="cart-submit-btn">送出訂單</button>
+      </div>
+      <p class="cart-disclaimer">送出後將跳轉至 Google 表單做最終確認，提交後小編會於 2 小時內以 LINE 回覆報價與付款資訊。</p>
+    </form>
+  `;
+}
+ 
+function submitOrder(e) {
+  e.preventDefault();
+  const fd = new FormData(e.target);
+  const cart = getCart();
+  if (cart.length === 0) { alert('購物車是空的'); return; }
+ 
+  // 把訂購清單組成多行文字
+  const lines = cart.map((it,i) =>
+    `${i+1}. ${it.name} × ${it.qty} = NT$${(it.price*it.qty).toLocaleString()}`
+  );
+  const orderText = lines.join('\n') + `\n\n共 ${getCartCount()} 件，小計 NT$${getCartTotal().toLocaleString()}`;
+ 
+  const params = new URLSearchParams({ usp: 'pp_url' });
+  params.set(ENTRY.name,     fd.get('name'));
+  params.set(ENTRY.line,     fd.get('line'));
+  params.set(ENTRY.phone,    fd.get('phone'));
+  params.set(ENTRY.delivery, fd.get('delivery'));
+  params.set(ENTRY.items,    orderText);
+  params.set(ENTRY.total,    String(getCartTotal()));
+  params.set(ENTRY.note,     fd.get('note') || '');
+ 
+  const url = FORM_BASE + '?' + params.toString();
+  window.open(url, '_blank');
+ 
+  setTimeout(() => {
+    if (confirm('訂單表單已開啟新分頁，請在該頁點「提交」完成下訂。\n\n要清空目前購物車嗎？')) {
+      saveCart([]);
+      renderCartModal();
+      closeCart();
+    }
+  }, 500);
+}
+ 
+function showToast(msg) {
+  let toast = document.getElementById('cart-toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'cart-toast';
+    toast.className = 'cart-toast';
+    document.body.appendChild(toast);
+  }
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toast._timer);
+  toast._timer = setTimeout(() => toast.classList.remove('show'), 2000);
+}
+ 
+// 初始化購物車徽章
+updateCartBadge();
  
 // ── TRIPS / 各國代購 ──
 const trips = [
@@ -2014,5 +2470,23 @@ function calcFee() {
   document.getElementById('calc-output').textContent = 'NT$ ' + Math.round(total).toLocaleString();
 }
 </script>
+ 
+<!-- ═══════════════ 購物車 UI ═══════════════ -->
+<button id="fab-cart" class="fab-cart" onclick="openCart()" aria-label="開啟購物車">
+  <span class="fab-cart-icon">🛒</span>
+  <span class="fab-cart-badge" id="fab-cart-badge" hidden>0</span>
+</button>
+ 
+<div id="cart-modal-overlay" class="cart-modal-overlay" hidden onclick="if(event.target===this)closeCart()">
+  <div class="cart-modal" role="dialog" aria-labelledby="cart-title" aria-modal="true">
+    <div class="cart-modal-header">
+      <h3 id="cart-title">🛒 我的購物車</h3>
+      <button class="cart-close" onclick="closeCart()" aria-label="關閉">✕</button>
+    </div>
+    <div class="cart-modal-body" id="cart-modal-body"></div>
+  </div>
+</div>
+ 
 </body>
 </html>
+ 
