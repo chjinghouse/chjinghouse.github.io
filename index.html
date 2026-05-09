@@ -675,6 +675,9 @@
     justify-content: flex-end;
     animation: cartFadeIn 0.2s;
   }
+  /* 強制隱藏（覆蓋 display:flex）*/
+  .cart-modal-overlay[hidden],
+  .fab-cart-badge[hidden] { display: none !important; }
   @keyframes cartFadeIn { from { opacity: 0 } }
   @keyframes cartSlideIn { from { transform: translateX(100%) } }
   .cart-modal {
@@ -1477,8 +1480,7 @@ const huataiShops = [
     matIcon: "🛍️",
     material: "LABUBU、MOLLY、SKULLPANDA、DIMOO",
     image: "https://chjinghouse.github.io/images/gloria_outlet/POP_MART.jpg",
-    alt: "POP MART 華泰名品城店面招牌",
-    price: 580   // ← 測試用（LABUBU 盲盒單抽價位），有 price 數字才會顯示「加入購物車」
+    alt: "POP MART 華泰名品城店面招牌"
   },
   {
     name: "PRADA 義大利精品代購",
@@ -1810,7 +1812,7 @@ const costcoItems = [
   {
     name: "喜馬拉雅鹽 檸檬糖",
     shop: "COSTCO · 零食",
-    price: "小編報價",
+    price: 350,
     badge: "new",
     specIcon: "🇮🇹",
     spec: "義大利進口，鹹甜清爽風味",
@@ -2489,4 +2491,3 @@ function calcFee() {
  
 </body>
 </html>
- 
