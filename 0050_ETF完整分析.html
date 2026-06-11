@@ -1059,6 +1059,39 @@ function toggleDetail(rank) {
 }
 
 renderHoldings();
+
+// ── 即時股價（TWSE OpenAPI）──
+async function fetchLivePrices() {
+  const bar = document.getElementById('priceStatus');
+  bar.textContent = '⏳ 正在抓取即時股價…';
+  try {
+    const res = await fetch('https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL');
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    const map = {};
+    data.forEach(d => { map[d.Code] = parseFloat(d.ClosingPrice?.replace(/,/g,'')); });
+
+    let updated = 0;
+    holdings.forEach(h => {
+      const price = map[h.code];
+      if (price && h.sharesB) {
+        h.livePrice = price;
+        h.marketCap = Math.round(price * h.sharesB);
+        updated++;
+      }
+    });
+
+    renderHoldings();
+    const now = new Date();
+    const ts = `${now.getMonth()+1}/${now.getDate()} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+    bar.innerHTML = `<span class="live-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#4ade80;margin-right:6px;"></span>即時股價已更新（${ts}）｜${updated} 檔取得收盤價`;
+  } catch(e) {
+    bar.textContent = '⚠️ 即時股價暫時無法取得（靜態資料顯示中）';
+    console.warn('fetchLivePrices error:', e);
+  }
+}
+
+fetchLivePrices();
 </script>
 </body>
 </html>
