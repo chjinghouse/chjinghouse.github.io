@@ -1083,7 +1083,7 @@ async function fetchLivePrices() {
 
     renderHoldings();
     const now = new Date();
-    const ts = `${now.getMonth()+1}/${now.getDate()} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+    const ts = `${now.getMonth()+1}/${now.getDate()} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
     bar.innerHTML = `<span class="live-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#4ade80;margin-right:6px;"></span>即時股價已更新（${ts}）｜${updated} 檔取得收盤價`;
   } catch(e) {
     bar.textContent = '⚠️ 即時股價暫時無法取得（靜態資料顯示中）';
