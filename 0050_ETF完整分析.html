@@ -1002,6 +1002,87 @@ const holdings = [
 
 const maxWeight = Math.max(...holdings.map(h => h.weight));
 
+// ── 自動計算 finScore / buyScore ──
+// 根據各股財報數據自動計算，取代寫死的分數。每次 nightly update 後自動生效。
+// 注意：代工股（鴻海、廣達等）因毛利率結構性偏低，finScore 可能低於直覺預期，屬設計限制。
+function computeScores(h) {
+  if (!h.fin) return;
+  const f = h.fin;
+
+  // 1. EPS 成長率
+  const egStr = (f.epsGrowth || '').trim();
+  let epsNum = null;
+  if (egStr !== 'N/A' && egStr !== '新上市') {
+    const m = egStr.match(/([+-]?\d+(?:\.\d+)?)/);
+    if (m) epsNum = parseFloat(m[1]);
+  }
+  const epsGrowthPts = epsNum === null ? 0.5          // N/A / 新上市：中立
+    : epsNum > 50 ? 1.5 : epsNum >= 20 ? 1.0 : epsNum >= 0 ? 0.5 : 0;
+
+  // 2. 毛利率（>45% 最高分；N/A 給中立 1.0，用於金融股）
+  const gmStr = (f.grossMargin || '').trim();
+  let grossPts = 1.0;
+  if (gmStr && gmStr !== 'N/A') {
+    const m = gmStr.match(/([\d.]+)/);
+    if (m) {
+      const gm = parseFloat(m[1]);
+      grossPts = gm > 45 ? 1.5 : gm >= 20 ? 1.0 : 0.5;
+    }
+  }
+
+  // 3. 淨利率（金融股用 ROE 替代）
+  const nmStr = (f.netMargin || '').trim();
+  let netPts = 0.5;
+  if (nmStr && nmStr !== 'N/A') {
+    if (/ROE/i.test(nmStr)) {
+      const m = nmStr.match(/([\d.]+)/);
+      if (m) {
+        const roe = parseFloat(m[1]);
+        netPts = roe > 12 ? 1.5 : roe >= 8 ? 1.0 : 0.5;
+      }
+    } else {
+      const m = nmStr.match(/([\d.]+)/);
+      if (m) {
+        const nm = parseFloat(m[1]);
+        netPts = nm > 15 ? 1.5 : nm >= 5 ? 1.0 : 0.5;
+      }
+    }
+  }
+
+  // 4. 財報新鮮度（TTM 或 2026Q 則加分）
+  const noteUpper = (f.note || '').toUpperCase();
+  const notePts = (noteUpper.includes('TTM') || noteUpper.includes('2026Q')) ? 0.5 : 0;
+
+  // finScore：原始加總 + 0.5 校準偏移（基於現有分數分佈調整），上限 5，下限 1
+  const raw = epsGrowthPts + grossPts + netPts + notePts + 0.5;
+  h.finScore = Math.round(Math.max(1, Math.min(5, raw)) * 10) / 10;
+
+  // 5. 解析本益比
+  const peStr = (f.pe || '').trim();
+  let peNum = NaN;
+  if (peStr && !/N\/A|虧/.test(peStr)) {
+    const m = peStr.match(/([\d.]+)/);
+    if (m) peNum = parseFloat(m[1]);
+  }
+
+  // buyScore：以 finScore 為基礎調整
+  let buyScore = h.finScore;
+  if (!isNaN(peNum)) {
+    if (peNum > 60) buyScore -= 0.5;       // PE 偏高
+    else if (peNum < 25) buyScore += 0.2;  // PE 合理（略低估）
+  }
+  if (epsNum !== null) {
+    if (epsNum > 50) buyScore += 0.3;      // 高成長加分
+    else if (epsNum < 0) buyScore -= 0.5;  // 負成長扣分
+  }
+  h.buyScore = Math.round(Math.max(1, Math.min(5, buyScore)) * 10) / 10;
+}
+
+// 在渲染前自動計算所有股票的分數（覆蓋原本寫死的值）
+holdings.forEach(computeScores);
+
+
+
 function starHTML(score) {
   let s = '';
   const full = Math.floor(score);
