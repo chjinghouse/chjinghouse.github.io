@@ -453,7 +453,7 @@
     </span>
   </div>
 
-  <div id="priceStatus" class="price-bar">📊 靜態市值資料（2026/06）｜市值 = 股本×股價估算，僅供參考</div>
+  <div id="priceStatus" class="price-bar">📊 靜態市值資料（<span id="priceDataDate"></span>）｜市值 = 股本×股價估算，僅供參考</div>
 
   <div class="filter-row">
     <button class="filter-btn active" onclick="filterSector('all',this)">全部</button>
@@ -649,9 +649,22 @@
   </div>
 
   <div style="text-align:center;margin-top:40px;color:var(--text3);font-size:0.8rem;">
-    資料來源：玩股網、元大投信、槓桿學院 ｜ 僅供參考，不構成投資建議 ｜ 更新 2026/06
+    資料來源：玩股網、元大投信、槓桿學院 ｜ 僅供參考，不構成投資建議 ｜ 更新 <span id="pageLoadTime"></span>
   </div>
 </div>
+
+<script>
+(function() {
+  function pad(n) { return String(n).padStart(2, '0'); }
+  var now = new Date();
+  var ts = now.getFullYear() + '/' + pad(now.getMonth()+1) + '/' + pad(now.getDate())
+          + ' ' + pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
+  var el = document.getElementById('pageLoadTime');
+  if (el) el.textContent = ts;
+  var el2 = document.getElementById('priceDataDate');
+  if (el2) el2.textContent = now.getFullYear() + '/' + pad(now.getMonth()+1) + '/' + pad(now.getDate());
+})();
+</script>
 
 <script>
 // ── 市值格式化 ──
