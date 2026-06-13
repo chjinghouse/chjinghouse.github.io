@@ -376,8 +376,6 @@
     background: var(--accent-dark);
     transform: translateY(-2px);
   }
-  .btn-outline { background: transparent; border: 2px solid #fff; color: #fff; padding: 0.75rem 1.5rem; border-radius: 2rem; text-decoration: none; font-weight: 600; transition: background 0.2s; }
-  .btn-outline:hover { background: rgba(255,255,255,0.15); }
  
   .carousel-controls {
     position: absolute;
@@ -1134,10 +1132,7 @@
         <div class="slide-tag">精選代購服務</div>
         <h2>那就交給<br>我們吧 🤍</h2>
         <p>因為忙碌、距離或時間限制，<br>沒辦法親自購買</p>
-        <div class="hero-btns" style="display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;">
-          <a href="#rules" class="btn-primary">查看代購規則</a>
-          <a href="blog/index.html" class="btn-outline">📝 前往部落格</a>
-        </div>
+        <a href="#rules" class="btn-primary" aria-label="查看 CHJING.HOUSE 代購規則">查看代購規則</a>
       </div>
     </div>
  
@@ -1770,7 +1765,7 @@ const costcoItems = [
   {
     name: "Combat 巧滅 蟑螂屋",
     shop: "COSTCO · 清潔",
-    price: 323,
+    price: "小編報價",
     badge: null,
     specIcon: "🇺🇸",
     spec: "美國 Henkel 集團，居家防蟑連窩端",
@@ -1782,7 +1777,7 @@ const costcoItems = [
   {
     name: "Fabreze 風倍清 浴室防霉",
     shop: "COSTCO · 清潔",
-    price: 707,
+    price: "小編報價",
     badge: null,
     specIcon: "🇯🇵",
     spec: "日本進口防霉煙霧劑，浴室必備",
@@ -1794,7 +1789,7 @@ const costcoItems = [
   {
     name: "Fabreze 風倍清 頂級除菌噴霧",
     shop: "COSTCO · 清潔",
-    price: 539,
+    price: "小編報價",
     badge: "hot",
     specIcon: "🇯🇵",
     spec: "日本頂級版，去味抗菌一次完成",
@@ -1806,7 +1801,7 @@ const costcoItems = [
   {
     name: "IM SEA 弱酸性 洗碗機洗碗錠",
     shop: "COSTCO · 清潔",
-    price: 347,
+    price: "小編報價",
     badge: "new",
     specIcon: "🇰🇷",
     spec: "韓國弱酸配方，敏感肌可用",
@@ -1820,7 +1815,7 @@ const costcoItems = [
   {
     name: "蘭諾 Lenor 抗菌芳香豆",
     shop: "COSTCO · 洗衣",
-    price: 707,
+    price: "小編報價",
     badge: "hot",
     specIcon: "🇯🇵",
     spec: "日本進口 P&G 出品，長效香氛",
@@ -1832,7 +1827,7 @@ const costcoItems = [
   {
     name: "Persil 室內晾乾洗衣球",
     shop: "COSTCO · 洗衣",
-    price: 707,
+    price: "小編報價",
     badge: null,
     specIcon: "🇩🇪",
     spec: "德國原裝室內晾乾配方，雨季神救援",
@@ -1846,7 +1841,7 @@ const costcoItems = [
   {
     name: "Brita Style XL 濾水壺",
     shop: "COSTCO · 廚房",
-    price: 959,
+    price: "小編報價",
     badge: null,
     specIcon: "🇩🇪",
     spec: "德國 Brita 大容量 3.6L 濾水壺",
@@ -1860,7 +1855,7 @@ const costcoItems = [
   {
     name: "3M 細滑牙線棒",
     shop: "COSTCO · 個人護理",
-    price: 719,
+    price: "小編報價",
     badge: null,
     specIcon: "🇺🇸",
     spec: "美國 3M 量販家庭號，多入優惠",
@@ -1872,7 +1867,7 @@ const costcoItems = [
   {
     name: "Oral-B iO 替換刷頭",
     shop: "COSTCO · 個人護理",
-    price: 2243,
+    price: "小編報價",
     badge: null,
     specIcon: "🇩🇪",
     spec: "德國百靈，iO 系列電動牙刷專用刷頭",
@@ -1884,7 +1879,7 @@ const costcoItems = [
   {
     name: "Philips Sonicare 5500 音波震動牙刷",
     shop: "COSTCO · 個人護理",
-    price: 7199,
+    price: "小編報價",
     badge: "hot",
     specIcon: "🇳🇱",
     spec: "荷蘭 Philips，每分鐘 6.2 萬次音波",
@@ -1896,7 +1891,7 @@ const costcoItems = [
   {
     name: "Philips Sonicare Optimal 替換刷頭",
     shop: "COSTCO · 個人護理",
-    price: 1103,
+    price: "小編報價",
     badge: null,
     specIcon: "🇳🇱",
     spec: "Sonicare 通用刷頭，多入家庭包",
@@ -1910,7 +1905,7 @@ const costcoItems = [
   {
     name: "Allie 光澤美肌 防曬乳",
     shop: "COSTCO · 美妝",
-    price: 1890,
+    price: "小編報價",
     badge: "hot",
     specIcon: "🇯🇵",
     spec: "日本 KANEBO 集團，超防水抗汗",
@@ -1922,7 +1917,7 @@ const costcoItems = [
   {
     name: "Neutrogena 露得清 雨韻沐浴乳",
     shop: "COSTCO · 美妝",
-    price: 635,
+    price: "小編報價",
     badge: null,
     specIcon: "🇺🇸",
     spec: "美國 Neutrogena 經典香氛沐浴乳",
@@ -1934,7 +1929,7 @@ const costcoItems = [
   {
     name: "Torriden 5D 玻尿酸面膜",
     shop: "COSTCO · 美妝",
-    price: 1319,
+    price: "小編報價",
     badge: "new",
     specIcon: "🇰🇷",
     spec: "韓國 Torriden 暢銷高保濕面膜",
@@ -1948,7 +1943,7 @@ const costcoItems = [
   {
     name: "Calvin Klein 男四角內褲",
     shop: "COSTCO · 服飾",
-    price: 1079,
+    price: "小編報價",
     badge: null,
     specIcon: "🇺🇸",
     spec: "美國經典 CK 男內衣，多色多入裝",
@@ -1960,7 +1955,7 @@ const costcoItems = [
   {
     name: "Calvin Klein 女運動內衣 (M / XL)",
     shop: "COSTCO · 服飾",
-    price: 1115,
+    price: "小編報價",
     badge: null,
     specIcon: "🇺🇸",
     spec: "美國 CK 經典 Bralette，可選 M / XL",
@@ -1972,7 +1967,7 @@ const costcoItems = [
   {
     name: "Levi's 男四角內褲",
     shop: "COSTCO · 服飾",
-    price: 503,
+    price: "小編報價",
     badge: null,
     specIcon: "🇺🇸",
     spec: "美國 Levi's 牛仔老牌內衣系列",
@@ -1984,7 +1979,7 @@ const costcoItems = [
   {
     name: "PUMA 運動襪 12 入",
     shop: "COSTCO · 服飾",
-    price: 719,
+    price: "小編報價",
     badge: "hot",
     specIcon: "🇩🇪",
     spec: "德國 PUMA 經典 LOGO，12 雙超值組",
@@ -1996,7 +1991,7 @@ const costcoItems = [
   {
     name: "Tommy Hilfiger 運動襪",
     shop: "COSTCO · 服飾",
-    price: 587,
+    price: "小編報價",
     badge: null,
     specIcon: "🇺🇸",
     spec: "美國 Tommy 經典款，多色組合包",
@@ -2010,7 +2005,7 @@ const costcoItems = [
   {
     name: "Looploop Lightning 充電線",
     shop: "COSTCO · 3C",
-    price: 839,
+    price: "小編報價",
     badge: "new",
     specIcon: "🇺🇸",
     spec: "Apple MFi 認證 Lightning 充電線",
