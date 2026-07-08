@@ -7,7 +7,7 @@
 <!-- ═══════════════ Primary SEO Meta ═══════════════ -->
 <title>CHJING.HOUSE 精選代購 | 華泰名品城・IKEA・COSTCO 台灣代購</title>
 <meta name="title" content="CHJING.HOUSE 精選代購 | 華泰名品城・IKEA・COSTCO 台灣代購">
-<meta name="description" content="CHJING.HOUSE 台灣精選代購服務 — 華泰名品城精品代購（PRADA、LOEWE、CELINE、BV、POP MART、LABUBU）、IKEA 居家好物、COSTCO 量販批量代購。3 天內出貨，LINE / IG 私訊報價，2 小時內回覆。">
+<meta name="description" content="CHJING.HOUSE 台灣精選代購服務 — IKEA代購、COSTCO好市多代購、華泰名品城精品代購（PRADA・LOEWE・CELINE・BV・POP MART・LABUBU）。3 天內出貨，LINE / IG 私訊報價，2 小時內回覆。">
 <meta name="keywords" content="代購, 精品代購, 華泰名品城代購, 華泰 outlet 代購, IKEA代購, COSTCO代購, 好市多代購, PRADA代購, LOEWE代購, CELINE代購, BV代購, BURBERRY代購, BALENCIAGA代購, YSL代購, POP MART代購, LABUBU代購, ONITSUKA代購, THE NORTH FACE代購, 台灣代購, 精選代購, 名牌代購, 桃園代購, 桃園 outlet 代購">
 <meta name="author" content="CHJING.HOUSE">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
@@ -28,7 +28,7 @@
 <meta property="og:site_name" content="CHJING.HOUSE">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:title" content="CHJING.HOUSE 精選代購 | 華泰名品城・IKEA・COSTCO 台灣代購">
-<meta property="og:description" content="台灣精選代購服務 — 華泰名品城精品、IKEA 居家好物、COSTCO 量販批量。3 天內出貨，LINE / IG 私訊報價，2 小時內回覆。">
+<meta property="og:description" content="IKEA代購、COSTCO好市多代購、華泰名品城精品代購（PRADA・LOEWE・POP MART・LABUBU）。3 天內出貨，LINE / IG 私訊報價，2 小時內回覆。">
 <meta property="og:image" content="https://chjinghouse.github.io/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -1190,9 +1190,68 @@
   .category-section { display: none; }
   .category-section.active { display: block; }
 
+  /* ── HAMBURGER (hidden on desktop) ── */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px 4px;
+    z-index: 101;
+    flex-shrink: 0;
+  }
+  .hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--black);
+    border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
   @media (max-width: 768px) {
-    nav { padding: 1rem 1.2rem; }
-    nav ul { display: none; }
+    nav {
+      padding: 0.85rem 1.2rem;
+    }
+    .hamburger { display: flex; }
+    .nav-status { display: none; }
+    /* 下拉選單：absolute 定位在 nav 正下方，避免 fixed+flex-wrap 的跨瀏覽器問題 */
+    nav ul {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      gap: 0;
+      padding: 0.25rem 1.2rem 0.75rem;
+      background: rgba(247,248,255,0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 4px 16px rgba(10,10,30,0.08);
+      list-style: none;
+      z-index: 99;
+    }
+    nav ul.open { display: flex; }
+    nav ul li { width: 100%; }
+    nav ul a {
+      display: block;
+      padding: 0.8rem 0.25rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--black);
+      border-bottom: 1px solid rgba(31,31,227,0.08);
+      text-transform: none;
+    }
+    nav ul li:last-child a { border-bottom: none; }
+    nav ul a:hover { color: var(--gold); }
     section { padding: 3.5rem 1.5rem; }
     .calc-box { padding: 1.5rem; }
     .carousel-arrow { display: none; }
@@ -1265,7 +1324,12 @@
 <!-- NAVBAR -->
 <nav id="navbar" aria-label="主選單">
   <a href="#" class="logo" aria-label="CHJING.HOUSE 精選代購首頁">CHJING<span>.</span>HOUSE</a>
-  <ul>
+  <button class="hamburger" id="hamburger" aria-label="開啟選單" aria-expanded="false" aria-controls="nav-menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <ul id="nav-menu">
     <li><a href="#rules">規則</a></li>
     <li><a href="#huatai">華泰名品城</a></li>
     <li><a href="#ikea">IKEA</a></li>
@@ -2342,7 +2406,7 @@ function renderCard(item, type) {
     : '';
   let buttonBlock = hasPrice
     ? `<button class="card-btn cart-btn" onclick="addToCart('${productId}')">加入購物車</button>`
-    : `<button class="card-btn" onclick="alert('此商品為報價型，請透過 LINE / IG 私訊小編詢價！')">詢問代購</button>`;
+    : `<button class="card-btn" onclick="window.open('https://line.me/R/ti/p/@387zmumm','_blank')">詢問代購</button>`;
 
   // 庫存標籤（僅 IKEA / COSTCO 商品有 inStock 欄位）
   let stockBadge = '';
@@ -2597,14 +2661,15 @@ const faqList = document.getElementById('faq-list');
 faqs.forEach((f, i) => {
   faqList.innerHTML += `
     <div class="faq-item" id="faq-${i}">
-      <button class="faq-q" onclick="toggleFaq(${i})">${f.q}<div class="faq-icon">+</div></button>
-      <div class="faq-a">${f.a}</div>
+      <button class="faq-q" onclick="toggleFaq(${i})" aria-expanded="false" aria-controls="faq-a-${i}">${f.q}<div class="faq-icon">+</div></button>
+      <div class="faq-a" id="faq-a-${i}">${f.a}</div>
     </div>`;
 });
 
 function toggleFaq(i) {
   const item = document.getElementById('faq-'+i);
-  item.classList.toggle('open');
+  const isOpen = item.classList.toggle('open');
+  item.querySelector('.faq-q').setAttribute('aria-expanded', isOpen ? 'true' : 'false');
 }
 
 // ── CAROUSEL ──
@@ -2636,6 +2701,27 @@ function calcFee() {
   const total = price * qty * (1 + rate);
   document.getElementById('calc-output').textContent = 'NT$ ' + Math.round(total).toLocaleString();
 }
+
+// ── Hamburger menu ──
+(function () {
+  var btn = document.getElementById('hamburger');
+  var menu = document.getElementById('nav-menu');
+  if (!btn || !menu) return;
+  btn.addEventListener('click', function () {
+    var isOpen = menu.classList.toggle('open');
+    btn.classList.toggle('open', isOpen);
+    btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    btn.setAttribute('aria-label', isOpen ? '關閉選單' : '開啟選單');
+  });
+  menu.addEventListener('click', function (e) {
+    if (e.target.tagName === 'A') {
+      menu.classList.remove('open');
+      btn.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+      btn.setAttribute('aria-label', '開啟選單');
+    }
+  });
+})();
 
 // ── 聊聊／LINE 聯絡浮動按鈕 ──
 function toggleChatMenu() {
