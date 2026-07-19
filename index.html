@@ -2612,6 +2612,23 @@ function submitOrder(e) {
   const cart = getCart();
   if (cart.length === 0) { alert('購物車是空的'); return; }
 
+  // 自行驗證欄位（不完全依賴瀏覽器原生 pattern 驗證，
+  // 因為手機自動填入常會帶空格/符號，原生驗證失敗時某些手機瀏覽器不會有明顯提示，
+  // 導致使用者以為按鈕沒反應）
+  const name = (fd.get('name') || '').trim();
+  const line = (fd.get('line') || '').trim();
+  const phone = (fd.get('phone') || '').trim().replace(/[\s-]/g, '');
+  const delivery = fd.get('delivery');
+  const note = fd.get('note') || '';
+
+  if (!name) { alert('請填寫姓名'); return; }
+  if (!line) { alert('請填寫 LINE ID'); return; }
+  if (!/^09\d{8}$/.test(phone)) {
+    alert('手機號碼格式不正確\n\n請確認是 09 開頭、共 10 碼的數字（例如 0912345678），中間不要有空格或符號。');
+    return;
+  }
+  if (!delivery) { alert('請選擇取貨方式'); return; }
+
   // 把訂購清單組成多行文字
   const lines = cart.map((it,i) =>
     `${i+1}. ${it.name} × ${it.qty} = NT$${(it.price*it.qty).toLocaleString()}`
@@ -2619,13 +2636,13 @@ function submitOrder(e) {
   const orderText = lines.join('\n') + `\n\n共 ${getCartCount()} 件，小計 NT$${getCartTotal().toLocaleString()}`;
 
   const params = new URLSearchParams({ usp: 'pp_url' });
-  params.set(ENTRY.name,     fd.get('name'));
-  params.set(ENTRY.line,     fd.get('line'));
-  params.set(ENTRY.phone,    fd.get('phone'));
-  params.set(ENTRY.delivery, fd.get('delivery'));
+  params.set(ENTRY.name,     name);
+  params.set(ENTRY.line,     line);
+  params.set(ENTRY.phone,    phone);
+  params.set(ENTRY.delivery, delivery);
   params.set(ENTRY.items,    orderText);
   params.set(ENTRY.total,    String(getCartTotal()));
-  params.set(ENTRY.note,     fd.get('note') || '');
+  params.set(ENTRY.note,     note);
 
   const url = FORM_BASE + '?' + params.toString();
 
