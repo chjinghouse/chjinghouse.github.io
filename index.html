@@ -2601,7 +2601,7 @@ function renderCartModal() {
         <button type="button" class="cart-clear-btn" onclick="clearCart()">清空</button>
         <button type="submit" class="cart-submit-btn">送出訂單</button>
       </div>
-      <p class="cart-disclaimer">送出後將跳轉至 Google 表單做最終確認，提交後小編會於 2 小時內以 LINE 回覆報價與付款資訊。</p>
+      <p class="cart-disclaimer">按下「送出訂單」後將直接跳轉至 Google 表單完成最終確認，購物車將自動清空。提交後小編會於 2 小時內以 LINE 回覆報價與付款資訊。</p>
     </form>
   `;
 }
@@ -2628,15 +2628,12 @@ function submitOrder(e) {
   params.set(ENTRY.note,     fd.get('note') || '');
 
   const url = FORM_BASE + '?' + params.toString();
-  window.open(url, '_blank');
 
-  setTimeout(() => {
-    if (confirm('訂單表單已開啟新分頁，請在該頁點「提交」完成下訂。\n\n要清空目前購物車嗎？')) {
-      saveCart([]);
-      renderCartModal();
-      closeCart();
-    }
-  }, 500);
+  // 直接在同一頁導頁（而非 window.open 開新分頁）
+  // 手機瀏覽器（尤其 LINE 內建瀏覽器、Safari）常會靜默擋掉 window.open 彈出新分頁，
+  // 導致使用者按下「送出訂單」後畫面沒有任何反應。同分頁導頁不會被攔截。
+  saveCart([]);
+  window.location.href = url;
 }
 
 function showToast(msg) {
